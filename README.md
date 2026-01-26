@@ -2,6 +2,20 @@
 
 **GitHub Profile Analyzer** - Comprehensive analysis tool for GitHub users and organizations with advanced visualizations, repository insights, code quality metrics, and collaboration analytics.
 
+## 📸 Screenshots
+
+![Dashboard Overview](./docs/screenshots/image1.png)
+*Main GitLyser dashboard with key profile analytics*
+
+![Repository Insights](./docs/screenshots/image2.png)
+*Detailed repository cards with summaries and metrics*
+
+![Activity & Contributions](./docs/screenshots/image3.png)
+*Contribution heatmap and activity timeline visualizations*
+
+![Code Quality & PR Analytics](./docs/screenshots/image4.png)
+*Code quality metrics and pull request analytics dashboard*
+
 ## 🚀 Quick Start
 
 ### 1. Install Dependencies
