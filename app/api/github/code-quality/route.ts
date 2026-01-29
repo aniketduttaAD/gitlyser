@@ -79,7 +79,7 @@ export async function GET(request: Request) {
     const commits = await githubJson<Commit[]>(
       `/repos/${sanitizedOwner}/${sanitizedRepo}/commits?per_page=100&sha=${defaultBranch}`
     ).catch(() => []);
-    
+
     const commitsWithStatsPromises = commits
       .slice(0, 100)
       .map((commit) =>

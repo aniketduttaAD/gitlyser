@@ -24,9 +24,11 @@ export default function ChartContainer({ title, children, loading, error }: Char
   }
 
   return (
-    <div className="rounded-xl border border-[#e2d6c8] bg-[#fffdf8] p-4 shadow-sm">
-      <h3 className="text-sm font-semibold text-[#5f564d] mb-4 uppercase tracking-wide">{title}</h3>
-      <div className="w-full">{children}</div>
+    <div className="rounded-xl border border-[#e2d6c8] bg-[#fffdf8] p-2 sm:p-4 shadow-sm overflow-hidden">
+      <h3 className="text-xs sm:text-sm font-semibold text-[#5f564d] mb-2 sm:mb-4 uppercase tracking-wide">
+        {title}
+      </h3>
+      <div className="w-full overflow-x-auto">{children}</div>
     </div>
   );
 }

@@ -1,31 +1,31 @@
 "use client";
 
 import {
-  Bug,
-  CalendarDays,
-  Code,
-  ExternalLink,
-  Eye,
-  FileText,
-  GitBranch,
-  GitFork,
-  GitPullRequest,
-  Globe,
-  Scale,
-  Sparkles,
-  Star,
-  Tag,
-  Clock,
-  MessageSquare,
-  Copy,
-  AlertCircle,
-  FolderKanban,
-  BookOpen,
-  Lock,
-  Layers,
-  Check,
-  type LucideIcon,
-} from "lucide-react";
+  LuBug,
+  LuCalendarDays,
+  LuCode,
+  LuExternalLink,
+  LuEye,
+  LuFileText,
+  LuGitBranch,
+  LuGitFork,
+  LuGitPullRequest,
+  LuGlobe,
+  LuScale,
+  LuSparkles,
+  LuStar,
+  LuTag,
+  LuClock,
+  LuCopy,
+  LuLock,
+  LuCheck,
+  LuCircleAlert,
+  LuBookOpen,
+  LuFolderKanban,
+  LuMessageSquare,
+  LuLayers,
+} from "react-icons/lu";
+import type { IconType } from "react-icons";
 import { useState, type ReactNode } from "react";
 import type {
   GithubRepo,
@@ -55,15 +55,15 @@ const formatDate = (value: string) =>
   });
 
 const Badge = ({ children }: { children: ReactNode }) => (
-  <span className="rounded-full border border-[#e2d6c8] bg-[#f1e6d8] px-3 py-1 text-xs text-[#6f665b]">
+  <span className="rounded-full border border-[#e2d6c8] bg-[#f1e6d8] px-2 sm:px-3 py-0.5 sm:py-1 text-[0.65rem] sm:text-xs text-[#6f665b] break-words">
     {children}
   </span>
 );
 
-const Metric = ({ icon: Icon, children }: { icon: LucideIcon; children: ReactNode }) => (
-  <span className="inline-flex items-center gap-1.5 rounded-full border border-[#e2d6c8] bg-[#f3ede4] px-3 py-1 text-xs text-[#6f665b]">
-    <Icon className="h-3.5 w-3.5" aria-hidden="true" />
-    {children}
+const Metric = ({ icon: Icon, children }: { icon: IconType; children: ReactNode }) => (
+  <span className="inline-flex items-center gap-1 sm:gap-1.5 rounded-full border border-[#e2d6c8] bg-[#f3ede4] px-2 sm:px-3 py-0.5 sm:py-1 text-[0.65rem] sm:text-xs text-[#6f665b]">
+    <Icon className="h-3 w-3 sm:h-3.5 sm:w-3.5 flex-shrink-0" aria-hidden="true" />
+    <span className="whitespace-nowrap">{children}</span>
   </span>
 );
 
@@ -405,9 +405,9 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
   };
 
   return (
-    <article className="rounded-2xl border border-[#e2d6c8] bg-[#fbf7f0] p-4 sm:p-6 shadow-sm transition hover:shadow-md">
-      <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-        <div className="flex-1 space-y-3 min-w-0">
+    <article className="rounded-2xl border border-[#e2d6c8] bg-[#fbf7f0] p-3 sm:p-6 shadow-sm transition hover:shadow-md overflow-hidden">
+      <div className="flex flex-col gap-3 sm:gap-4 md:flex-row md:items-start md:justify-between">
+        <div className="flex-1 space-y-2 sm:space-y-3 min-w-0">
           <div className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-3">
             <a
               href={repo.html_url}
@@ -423,15 +423,20 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
             </div>
           </div>
           {repo.description && (
-            <p className="text-sm text-[#6f665b] leading-relaxed">{repo.description}</p>
+            <p className="text-xs sm:text-sm text-[#6f665b] leading-relaxed break-words">
+              {repo.description}
+            </p>
           )}
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
             {repo.language && <Badge>{repo.language}</Badge>}
-            <Metric icon={Star}>{repo.stargazers_count}</Metric>
-            <Metric icon={GitFork}>{repo.forks_count}</Metric>
-            <Metric icon={Eye}>{watchers}</Metric>
-            <Metric icon={Bug}>{repo.open_issues_count}</Metric>
-            <Metric icon={CalendarDays}>Updated {formatDate(repo.updated_at)}</Metric>
+            <Metric icon={LuStar}>{repo.stargazers_count}</Metric>
+            <Metric icon={LuGitFork}>{repo.forks_count}</Metric>
+            <Metric icon={LuEye}>{watchers}</Metric>
+            <Metric icon={LuBug}>{repo.open_issues_count}</Metric>
+            <Metric icon={LuCalendarDays}>
+              <span className="hidden xs:inline">Updated </span>
+              {formatDate(repo.updated_at)}
+            </Metric>
           </div>
         </div>
         <button
@@ -456,8 +461,8 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
           )}
           {detailsError && <p className="text-sm text-rose-600">{detailsError}</p>}
           {summary && (
-            <div className="grid gap-5 xl:grid-cols-[1.3fr_1fr]">
-              <div className="space-y-5">
+            <div className="grid gap-4 sm:gap-5 xl:grid-cols-[1.3fr_1fr]">
+              <div className="space-y-4 sm:space-y-5">
                 <div>
                   <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between mb-3">
                     <p className="text-xs uppercase tracking-wide text-[#7a7064] font-semibold">
@@ -470,7 +475,7 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
                         disabled={aiLoading || detailsLoading}
                         className="flex items-center gap-1.5 rounded-lg border border-[#cfdad7] bg-[#e9efee] px-3 py-1.5 text-xs font-semibold text-[#4f6d6a] transition hover:border-[#b8c6c3] hover:bg-[#d9e5e4] disabled:opacity-50 disabled:cursor-not-allowed w-fit"
                       >
-                        <Sparkles
+                        <LuSparkles
                           className={`h-3.5 w-3.5 ${aiLoading ? "animate-pulse" : ""}`}
                           aria-hidden="true"
                         />
@@ -488,25 +493,27 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
                     )}
                   </div>
                   {aiSummary ? (
-                    <div className="rounded-xl border border-[#cfdad7] bg-[#e9efee] p-4 text-sm text-[#5f564d]">
-                      <div className="flex items-center gap-2 mb-3 text-xs uppercase tracking-wide text-[#4f6d6a] font-semibold">
-                        <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+                    <div className="rounded-xl border border-[#cfdad7] bg-[#e9efee] p-3 sm:p-4 text-xs sm:text-sm text-[#5f564d]">
+                      <div className="flex items-center gap-2 mb-2 sm:mb-3 text-[0.65rem] sm:text-xs uppercase tracking-wide text-[#4f6d6a] font-semibold">
+                        <LuSparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5" aria-hidden="true" />
                         Smart Summary
                       </div>
-                      <div className="prose prose-sm max-w-none text-[#5f564d] leading-relaxed">
+                      <div className="prose prose-sm max-w-none text-[#5f564d] leading-relaxed break-words">
                         {aiSummary.split("\n\n").map((paragraph, idx) => (
-                          <p key={idx} className="mb-3 last:mb-0">
+                          <p key={idx} className="mb-2 sm:mb-3 last:mb-0 break-words">
                             {paragraph.trim()}
                           </p>
                         ))}
                       </div>
                     </div>
                   ) : (
-                    <p className="mt-2 text-sm text-[#5f564d] leading-relaxed">{summary.summary}</p>
+                    <p className="mt-2 text-xs sm:text-sm text-[#5f564d] leading-relaxed break-words">
+                      {summary.summary}
+                    </p>
                   )}
                   {aiLoading && !aiSummary && (
                     <div className="mt-2 flex items-center gap-2 text-sm text-[#6f665b]">
-                      <Sparkles
+                      <LuSparkles
                         className="h-4 w-4 animate-pulse text-[#4f6d6a]"
                         aria-hidden="true"
                       />
@@ -523,10 +530,10 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
                 </div>
                 {summary.techStack.length > 0 && (
                   <div>
-                    <p className="text-xs uppercase tracking-wide text-[#7a7064] mb-2 font-semibold">
+                    <p className="text-[0.65rem] sm:text-xs uppercase tracking-wide text-[#7a7064] mb-2 font-semibold">
                       Tech Stack
                     </p>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
                       {summary.techStack.map((item) => (
                         <Badge key={item}>{item}</Badge>
                       ))}
@@ -534,39 +541,42 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
                   </div>
                 )}
                 {(showReadmeHighlight || summary.additionalMarkdowns.length > 0) && (
-                  <div className="space-y-3">
-                    <p className="text-xs uppercase tracking-wide text-[#7a7064] font-semibold">
+                  <div className="space-y-2.5 sm:space-y-3">
+                    <p className="text-[0.65rem] sm:text-xs uppercase tracking-wide text-[#7a7064] font-semibold">
                       Docs Highlights
                     </p>
                     {showReadmeHighlight && summary.readmeExcerpt && (
-                      <div className="rounded-xl border border-[#e2d6c8] bg-[#f3ede4] p-3 text-sm text-[#5f564d]">
-                        <div className="flex items-center gap-2 text-xs uppercase tracking-wide text-[#7a7064]">
-                          <FileText className="h-3.5 w-3.5" aria-hidden="true" />
+                      <div className="rounded-xl border border-[#e2d6c8] bg-[#f3ede4] p-2.5 sm:p-3 text-xs sm:text-sm text-[#5f564d]">
+                        <div className="flex items-center gap-1.5 sm:gap-2 text-[0.65rem] sm:text-xs uppercase tracking-wide text-[#7a7064]">
+                          <LuFileText className="h-3 w-3 sm:h-3.5 sm:w-3.5" aria-hidden="true" />
                           README
                         </div>
-                        <p className="mt-2">{summary.readmeExcerpt}</p>
+                        <p className="mt-1.5 sm:mt-2 break-words">{summary.readmeExcerpt}</p>
                       </div>
                     )}
                     {summary.additionalMarkdowns.map((item) => (
                       <div
                         key={item.file}
-                        className="rounded-xl border border-[#e2d6c8] bg-[#fffdf8] p-3 text-sm text-[#5f564d]"
+                        className="rounded-xl border border-[#e2d6c8] bg-[#fffdf8] p-2.5 sm:p-3 text-xs sm:text-sm text-[#5f564d]"
                       >
-                        <div className="flex items-center gap-2 text-xs uppercase tracking-wide text-[#7a7064]">
-                          <FileText className="h-3.5 w-3.5" aria-hidden="true" />
+                        <div className="flex items-center gap-1.5 sm:gap-2 text-[0.65rem] sm:text-xs uppercase tracking-wide text-[#7a7064]">
+                          <LuFileText className="h-3 w-3 sm:h-3.5 sm:w-3.5" aria-hidden="true" />
                           {item.file}
                         </div>
-                        <p className="mt-2">{item.excerpt}</p>
+                        <p className="mt-1.5 sm:mt-2 break-words">{item.excerpt}</p>
                       </div>
                     ))}
                   </div>
                 )}
                 {(summary.dependencySignals.length > 0 || summary.fileSignals.length > 0) && (
                   <div>
-                    <p className="text-xs uppercase tracking-wide text-[#7a7064] mb-2 font-semibold">
-                      Signals
+                    <p className="text-[0.65rem] sm:text-xs uppercase tracking-wide text-[#7a7064] mb-2 font-semibold">
+                      Detected Features
                     </p>
-                    <div className="flex flex-wrap gap-2">
+                    <p className="text-[0.65rem] sm:text-xs text-[#6f665b] mb-1.5">
+                      Technologies and features detected from dependencies and file structure
+                    </p>
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
                       {summary.dependencySignals.map((item) => (
                         <Badge key={item}>{item}</Badge>
                       ))}
@@ -577,16 +587,16 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
                   </div>
                 )}
               </div>
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {/* Basic Information */}
-                <div className="rounded-xl border border-[#e2d6c8] bg-[#fffdf8] p-3 sm:p-4 shadow-sm">
-                  <p className="text-xs uppercase tracking-wide text-[#7a7064] mb-3 font-semibold">
+                <div className="rounded-xl border border-[#e2d6c8] bg-[#fffdf8] p-2.5 sm:p-4 shadow-sm overflow-hidden">
+                  <p className="text-[0.65rem] sm:text-xs uppercase tracking-wide text-[#7a7064] mb-2 sm:mb-3 font-semibold">
                     Basic Information
                   </p>
-                  <div className="space-y-2 sm:space-y-2.5 text-sm text-[#6f665b]">
+                  <div className="space-y-1.5 sm:space-y-2.5 text-xs sm:text-sm text-[#6f665b]">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0">
                       <div className="flex items-center gap-2">
-                        <GitBranch
+                        <LuGitBranch
                           className="h-4 w-4 text-[#7a7064] flex-shrink-0"
                           aria-hidden="true"
                         />
@@ -598,7 +608,10 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
                     </div>
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0">
                       <div className="flex items-center gap-2">
-                        <Eye className="h-4 w-4 text-[#7a7064] flex-shrink-0" aria-hidden="true" />
+                        <LuEye
+                          className="h-4 w-4 text-[#7a7064] flex-shrink-0"
+                          aria-hidden="true"
+                        />
                         <span>Visibility</span>
                       </div>
                       <span className="font-medium text-[#5f564d] capitalize sm:text-right">
@@ -607,7 +620,7 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
                     </div>
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0">
                       <div className="flex items-center gap-2">
-                        <Scale
+                        <LuScale
                           className="h-4 w-4 text-[#7a7064] flex-shrink-0"
                           aria-hidden="true"
                         />
@@ -619,7 +632,10 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
                     </div>
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0">
                       <div className="flex items-center gap-2">
-                        <Code className="h-4 w-4 text-[#7a7064] flex-shrink-0" aria-hidden="true" />
+                        <LuCode
+                          className="h-4 w-4 text-[#7a7064] flex-shrink-0"
+                          aria-hidden="true"
+                        />
                         <span>Size</span>
                       </div>
                       <span className="font-medium text-[#5f564d] sm:text-right">
@@ -628,7 +644,10 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
                     </div>
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0">
                       <div className="flex items-center gap-2">
-                        <Bug className="h-4 w-4 text-[#7a7064] flex-shrink-0" aria-hidden="true" />
+                        <LuBug
+                          className="h-4 w-4 text-[#7a7064] flex-shrink-0"
+                          aria-hidden="true"
+                        />
                         <span>Open issues</span>
                       </div>
                       <span className="font-medium text-[#5f564d] sm:text-right">
@@ -638,7 +657,7 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
                     {summary.networkCount > 0 && (
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0">
                         <div className="flex items-center gap-2">
-                          <GitFork
+                          <LuGitFork
                             className="h-4 w-4 text-[#7a7064] flex-shrink-0"
                             aria-hidden="true"
                           />
@@ -652,7 +671,7 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
                     {summary.subscribersCount > 0 && (
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0">
                         <div className="flex items-center gap-2">
-                          <Eye
+                          <LuEye
                             className="h-4 w-4 text-[#7a7064] flex-shrink-0"
                             aria-hidden="true"
                           />
@@ -667,14 +686,14 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
                 </div>
 
                 {/* Timeline */}
-                <div className="rounded-xl border border-[#e2d6c8] bg-[#fffdf8] p-3 sm:p-4 shadow-sm">
-                  <p className="text-xs uppercase tracking-wide text-[#7a7064] mb-3 font-semibold">
+                <div className="rounded-xl border border-[#e2d6c8] bg-[#fffdf8] p-2.5 sm:p-4 shadow-sm overflow-hidden">
+                  <p className="text-[0.65rem] sm:text-xs uppercase tracking-wide text-[#7a7064] mb-2 sm:mb-3 font-semibold">
                     Timeline
                   </p>
-                  <div className="space-y-2 sm:space-y-2.5 text-sm text-[#6f665b]">
+                  <div className="space-y-1.5 sm:space-y-2.5 text-xs sm:text-sm text-[#6f665b]">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0">
                       <div className="flex items-center gap-2">
-                        <Clock
+                        <LuClock
                           className="h-4 w-4 text-[#7a7064] flex-shrink-0"
                           aria-hidden="true"
                         />
@@ -686,7 +705,7 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
                     </div>
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0">
                       <div className="flex items-center gap-2">
-                        <CalendarDays
+                        <LuCalendarDays
                           className="h-4 w-4 text-[#7a7064] flex-shrink-0"
                           aria-hidden="true"
                         />
@@ -721,49 +740,49 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
                       <div className="space-y-2 text-sm">
                         {summary.isTemplate && (
                           <div className="flex items-center gap-2 text-[#4f6d6a]">
-                            <Layers className="h-4 w-4" aria-hidden="true" />
+                            <LuLayers className="h-4 w-4" aria-hidden="true" />
                             <span className="font-medium">Template repository</span>
                           </div>
                         )}
                         {summary.hasPages && (
                           <div className="flex items-center gap-2 text-[#4f6d6a]">
-                            <Globe className="h-4 w-4" aria-hidden="true" />
+                            <LuGlobe className="h-4 w-4" aria-hidden="true" />
                             <span>GitHub Pages enabled</span>
                           </div>
                         )}
                         {summary.hasDiscussions && (
                           <div className="flex items-center gap-2 text-[#4f6d6a]">
-                            <MessageSquare className="h-4 w-4" aria-hidden="true" />
+                            <LuMessageSquare className="h-4 w-4" aria-hidden="true" />
                             <span>Discussions enabled</span>
                           </div>
                         )}
                         {summary.hasProjects && (
                           <div className="flex items-center gap-2 text-[#4f6d6a]">
-                            <FolderKanban className="h-4 w-4" aria-hidden="true" />
+                            <LuFolderKanban className="h-4 w-4" aria-hidden="true" />
                             <span>Projects enabled</span>
                           </div>
                         )}
                         {summary.hasWiki && (
                           <div className="flex items-center gap-2 text-[#4f6d6a]">
-                            <BookOpen className="h-4 w-4" aria-hidden="true" />
+                            <LuBookOpen className="h-4 w-4" aria-hidden="true" />
                             <span>Wiki enabled</span>
                           </div>
                         )}
                         {!summary.hasIssues && (
                           <div className="flex items-center gap-2 text-[#8a7e72]">
-                            <Bug className="h-4 w-4" aria-hidden="true" />
+                            <LuBug className="h-4 w-4" aria-hidden="true" />
                             <span>Issues disabled</span>
                           </div>
                         )}
                         {!summary.allowForking && (
                           <div className="flex items-center gap-2 text-[#8a7e72]">
-                            <Lock className="h-4 w-4" aria-hidden="true" />
+                            <LuLock className="h-4 w-4" aria-hidden="true" />
                             <span>Forking disabled</span>
                           </div>
                         )}
                         {summary.disabled && (
                           <div className="flex items-center gap-2 text-rose-600">
-                            <AlertCircle className="h-4 w-4" aria-hidden="true" />
+                            <LuCircleAlert className="h-4 w-4" aria-hidden="true" />
                             <span className="font-medium">Repository disabled</span>
                           </div>
                         )}
@@ -784,38 +803,47 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
                   if (!hasNonDefaultMergeSettings) return null;
 
                   return (
-                    <div className="rounded-xl border border-[#e2d6c8] bg-[#fffdf8] p-3 sm:p-4 shadow-sm">
-                      <p className="text-xs uppercase tracking-wide text-[#7a7064] mb-3 font-semibold">
+                    <div className="rounded-xl border border-[#e2d6c8] bg-[#fffdf8] p-2.5 sm:p-4 shadow-sm overflow-hidden">
+                      <p className="text-[0.65rem] sm:text-xs uppercase tracking-wide text-[#7a7064] mb-2 sm:mb-3 font-semibold">
                         Merge Settings
                       </p>
-                      <div className="space-y-2 text-sm text-[#6f665b]">
+                      <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-[#6f665b]">
                         {(!summary.allowSquashMerge ||
                           !summary.allowMergeCommit ||
                           !summary.allowRebaseMerge) && (
                           <>
                             {!summary.allowSquashMerge && (
                               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0">
-                                <span>Squash merge</span>
+                                <span className="break-words">Squash merge</span>
                                 <span className="flex items-center gap-1 text-[#8a7e72] sm:justify-end">
-                                  <Lock className="h-3.5 w-3.5" aria-hidden="true" />
+                                  <LuLock
+                                    className="h-3 w-3 sm:h-3.5 sm:w-3.5"
+                                    aria-hidden="true"
+                                  />
                                   Disabled
                                 </span>
                               </div>
                             )}
                             {!summary.allowMergeCommit && (
                               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0">
-                                <span>Merge commit</span>
+                                <span className="break-words">Merge commit</span>
                                 <span className="flex items-center gap-1 text-[#8a7e72] sm:justify-end">
-                                  <Lock className="h-3.5 w-3.5" aria-hidden="true" />
+                                  <LuLock
+                                    className="h-3 w-3 sm:h-3.5 sm:w-3.5"
+                                    aria-hidden="true"
+                                  />
                                   Disabled
                                 </span>
                               </div>
                             )}
                             {!summary.allowRebaseMerge && (
                               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0">
-                                <span>Rebase merge</span>
+                                <span className="break-words">Rebase merge</span>
                                 <span className="flex items-center gap-1 text-[#8a7e72] sm:justify-end">
-                                  <Lock className="h-3.5 w-3.5" aria-hidden="true" />
+                                  <LuLock
+                                    className="h-3 w-3 sm:h-3.5 sm:w-3.5"
+                                    aria-hidden="true"
+                                  />
                                   Disabled
                                 </span>
                               </div>
@@ -824,13 +852,13 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
                         )}
                         {summary.allowAutoMerge && (
                           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0 text-[#4f6d6a]">
-                            <span>Auto-merge</span>
+                            <span className="break-words">Auto-merge</span>
                             <span className="font-medium sm:text-right">Enabled</span>
                           </div>
                         )}
                         {summary.deleteBranchOnMerge && (
                           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0 text-[#4f6d6a]">
-                            <span>Auto-delete branch</span>
+                            <span className="break-words">Auto-delete branch</span>
                             <span className="font-medium sm:text-right">Enabled</span>
                           </div>
                         )}
@@ -841,24 +869,24 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
 
                 {/* Clone URLs & Links */}
                 {(summary.cloneUrl || summary.sshUrl || summary.gitUrl || summary.homepage) && (
-                  <div className="rounded-xl border border-[#e2d6c8] bg-[#fffdf8] p-3 sm:p-4 shadow-sm">
-                    <p className="text-xs uppercase tracking-wide text-[#7a7064] mb-3 font-semibold">
+                  <div className="rounded-xl border border-[#e2d6c8] bg-[#fffdf8] p-2.5 sm:p-4 shadow-sm overflow-hidden">
+                    <p className="text-[0.65rem] sm:text-xs uppercase tracking-wide text-[#7a7064] mb-2 sm:mb-3 font-semibold">
                       Clone & Links
                     </p>
-                    <div className="space-y-2">
+                    <div className="space-y-1.5 sm:space-y-2">
                       {summary.cloneUrl && (
-                        <div className="group flex flex-col sm:flex-row sm:items-center gap-2 rounded-lg border border-[#cfdad7] bg-[#e9efee] p-2 transition hover:border-[#b8c6c3] hover:bg-[#d9e5e4]">
-                          <div className="flex items-center gap-2 flex-1 min-w-0">
-                            <Copy
-                              className="h-3.5 w-3.5 text-[#4f6d6a] flex-shrink-0"
+                        <div className="group flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-2 rounded-lg border border-[#cfdad7] bg-[#e9efee] p-2 transition hover:border-[#b8c6c3] hover:bg-[#d9e5e4]">
+                          <div className="flex items-center gap-1.5 sm:gap-2 flex-1 min-w-0">
+                            <LuCopy
+                              className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-[#4f6d6a] flex-shrink-0"
                               aria-hidden="true"
                             />
                             <div className="flex-1 min-w-0">
-                              <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
-                                <span className="text-xs font-semibold text-[#4f6d6a] whitespace-nowrap">
+                              <div className="flex flex-col gap-0.5 sm:flex-row sm:items-center sm:gap-2">
+                                <span className="text-[0.65rem] sm:text-xs font-semibold text-[#4f6d6a] whitespace-nowrap">
                                   HTTPS
                                 </span>
-                                <span className="text-xs text-[#6f665b] font-mono truncate flex-1">
+                                <span className="text-[0.65rem] sm:text-xs text-[#6f665b] font-mono break-all sm:truncate flex-1">
                                   {summary.cloneUrl}
                                 </span>
                               </div>
@@ -870,17 +898,20 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
                               e.stopPropagation();
                               copyToClipboard(summary.cloneUrl, "https");
                             }}
-                            className="flex items-center justify-center gap-1 rounded px-2 py-1 text-xs font-medium text-[#4f6d6a] transition hover:bg-[#c9d5d4] flex-shrink-0 w-full sm:w-auto"
+                            className="flex items-center justify-center gap-1 rounded px-2 py-1 text-[0.65rem] sm:text-xs font-medium text-[#4f6d6a] transition hover:bg-[#c9d5d4] flex-shrink-0 w-full sm:w-auto"
                             title="Copy HTTPS URL"
                           >
                             {copiedUrl === "https" ? (
                               <>
-                                <Check className="h-3.5 w-3.5 text-[#426a4b]" aria-hidden="true" />
+                                <LuCheck
+                                  className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-[#426a4b]"
+                                  aria-hidden="true"
+                                />
                                 <span className="sm:hidden">Copied!</span>
                               </>
                             ) : (
                               <>
-                                <Copy className="h-3.5 w-3.5" aria-hidden="true" />
+                                <LuCopy className="h-3 w-3 sm:h-3.5 sm:w-3.5" aria-hidden="true" />
                                 <span className="sm:hidden">Copy</span>
                               </>
                             )}
@@ -888,18 +919,18 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
                         </div>
                       )}
                       {summary.sshUrl && (
-                        <div className="group flex flex-col sm:flex-row sm:items-center gap-2 rounded-lg border border-[#cfdad7] bg-[#e9efee] p-2 transition hover:border-[#b8c6c3] hover:bg-[#d9e5e4]">
-                          <div className="flex items-center gap-2 flex-1 min-w-0">
-                            <Copy
-                              className="h-3.5 w-3.5 text-[#4f6d6a] flex-shrink-0"
+                        <div className="group flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-2 rounded-lg border border-[#cfdad7] bg-[#e9efee] p-2 transition hover:border-[#b8c6c3] hover:bg-[#d9e5e4]">
+                          <div className="flex items-center gap-1.5 sm:gap-2 flex-1 min-w-0">
+                            <LuCopy
+                              className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-[#4f6d6a] flex-shrink-0"
                               aria-hidden="true"
                             />
                             <div className="flex-1 min-w-0">
-                              <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
-                                <span className="text-xs font-semibold text-[#4f6d6a] whitespace-nowrap">
+                              <div className="flex flex-col gap-0.5 sm:flex-row sm:items-center sm:gap-2">
+                                <span className="text-[0.65rem] sm:text-xs font-semibold text-[#4f6d6a] whitespace-nowrap">
                                   SSH
                                 </span>
-                                <span className="text-xs text-[#6f665b] font-mono truncate flex-1">
+                                <span className="text-[0.65rem] sm:text-xs text-[#6f665b] font-mono break-all sm:truncate flex-1">
                                   {summary.sshUrl}
                                 </span>
                               </div>
@@ -911,17 +942,20 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
                               e.stopPropagation();
                               copyToClipboard(summary.sshUrl!, "ssh");
                             }}
-                            className="flex items-center justify-center gap-1 rounded px-2 py-1 text-xs font-medium text-[#4f6d6a] transition hover:bg-[#c9d5d4] flex-shrink-0 w-full sm:w-auto"
+                            className="flex items-center justify-center gap-1 rounded px-2 py-1 text-[0.65rem] sm:text-xs font-medium text-[#4f6d6a] transition hover:bg-[#c9d5d4] flex-shrink-0 w-full sm:w-auto"
                             title="Copy SSH URL"
                           >
                             {copiedUrl === "ssh" ? (
                               <>
-                                <Check className="h-3.5 w-3.5 text-[#426a4b]" aria-hidden="true" />
+                                <LuCheck
+                                  className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-[#426a4b]"
+                                  aria-hidden="true"
+                                />
                                 <span className="sm:hidden">Copied!</span>
                               </>
                             ) : (
                               <>
-                                <Copy className="h-3.5 w-3.5" aria-hidden="true" />
+                                <LuCopy className="h-3 w-3 sm:h-3.5 sm:w-3.5" aria-hidden="true" />
                                 <span className="sm:hidden">Copy</span>
                               </>
                             )}
@@ -929,18 +963,18 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
                         </div>
                       )}
                       {summary.gitUrl && (
-                        <div className="group flex flex-col sm:flex-row sm:items-center gap-2 rounded-lg border border-[#cfdad7] bg-[#e9efee] p-2 transition hover:border-[#b8c6c3] hover:bg-[#d9e5e4]">
-                          <div className="flex items-center gap-2 flex-1 min-w-0">
-                            <Copy
-                              className="h-3.5 w-3.5 text-[#4f6d6a] flex-shrink-0"
+                        <div className="group flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-2 rounded-lg border border-[#cfdad7] bg-[#e9efee] p-2 transition hover:border-[#b8c6c3] hover:bg-[#d9e5e4]">
+                          <div className="flex items-center gap-1.5 sm:gap-2 flex-1 min-w-0">
+                            <LuCopy
+                              className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-[#4f6d6a] flex-shrink-0"
                               aria-hidden="true"
                             />
                             <div className="flex-1 min-w-0">
-                              <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
-                                <span className="text-xs font-semibold text-[#4f6d6a] whitespace-nowrap">
+                              <div className="flex flex-col gap-0.5 sm:flex-row sm:items-center sm:gap-2">
+                                <span className="text-[0.65rem] sm:text-xs font-semibold text-[#4f6d6a] whitespace-nowrap">
                                   Git
                                 </span>
-                                <span className="text-xs text-[#6f665b] font-mono truncate flex-1">
+                                <span className="text-[0.65rem] sm:text-xs text-[#6f665b] font-mono break-all sm:truncate flex-1">
                                   {summary.gitUrl}
                                 </span>
                               </div>
@@ -952,17 +986,20 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
                               e.stopPropagation();
                               copyToClipboard(summary.gitUrl!, "git");
                             }}
-                            className="flex items-center justify-center gap-1 rounded px-2 py-1 text-xs font-medium text-[#4f6d6a] transition hover:bg-[#c9d5d4] flex-shrink-0 w-full sm:w-auto"
+                            className="flex items-center justify-center gap-1 rounded px-2 py-1 text-[0.65rem] sm:text-xs font-medium text-[#4f6d6a] transition hover:bg-[#c9d5d4] flex-shrink-0 w-full sm:w-auto"
                             title="Copy Git URL"
                           >
                             {copiedUrl === "git" ? (
                               <>
-                                <Check className="h-3.5 w-3.5 text-[#426a4b]" aria-hidden="true" />
+                                <LuCheck
+                                  className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-[#426a4b]"
+                                  aria-hidden="true"
+                                />
                                 <span className="sm:hidden">Copied!</span>
                               </>
                             ) : (
                               <>
-                                <Copy className="h-3.5 w-3.5" aria-hidden="true" />
+                                <LuCopy className="h-3 w-3 sm:h-3.5 sm:w-3.5" aria-hidden="true" />
                                 <span className="sm:hidden">Copy</span>
                               </>
                             )}
@@ -974,13 +1011,24 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
                           href={normalizeUrl(summary.homepage)}
                           target="_blank"
                           rel="noreferrer"
-                          className="flex items-center justify-between gap-2 rounded-lg border border-[#cfdad7] bg-[#e9efee] p-2 text-sm text-[#4f6d6a] transition hover:border-[#b8c6c3] hover:bg-[#d9e5e4]"
+                          className="flex items-center justify-between gap-2 rounded-lg border border-[#cfdad7] bg-[#e9efee] p-2 text-xs sm:text-sm text-[#4f6d6a] transition hover:border-[#b8c6c3] hover:bg-[#d9e5e4] break-all"
                         >
-                          <div className="flex items-center gap-2">
-                            <Globe className="h-3.5 w-3.5" aria-hidden="true" />
-                            <span className="font-medium text-sm">Homepage</span>
+                          <div className="flex items-center gap-1.5 sm:gap-2 min-w-0 flex-1">
+                            <LuGlobe
+                              className="h-3 w-3 sm:h-3.5 sm:w-3.5 flex-shrink-0"
+                              aria-hidden="true"
+                            />
+                            <span className="font-medium text-xs sm:text-sm truncate">
+                              Homepage
+                            </span>
+                            <span className="text-[0.65rem] sm:text-xs truncate hidden sm:inline">
+                              {summary.homepage}
+                            </span>
                           </div>
-                          <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+                          <LuExternalLink
+                            className="h-3 w-3 sm:h-3.5 sm:w-3.5 flex-shrink-0"
+                            aria-hidden="true"
+                          />
                         </a>
                       )}
                     </div>
@@ -988,16 +1036,16 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
                 )}
                 {summary.topics.length > 0 && (
                   <div>
-                    <p className="text-xs uppercase tracking-wide text-[#7a7064] mb-2 font-semibold">
+                    <p className="text-[0.65rem] sm:text-xs uppercase tracking-wide text-[#7a7064] mb-2 font-semibold">
                       Topics
                     </p>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
                       {summary.topics.map((topic) => (
                         <span
                           key={topic}
-                          className="inline-flex items-center gap-1.5 rounded-full border border-[#cfdad7] bg-[#e9efee] px-3 py-1 text-xs text-[#4f6d6a]"
+                          className="inline-flex items-center gap-1 sm:gap-1.5 rounded-full border border-[#cfdad7] bg-[#e9efee] px-2 sm:px-3 py-0.5 sm:py-1 text-[0.65rem] sm:text-xs text-[#4f6d6a]"
                         >
-                          <Tag className="h-3.5 w-3.5" aria-hidden="true" />
+                          <LuTag className="h-3 w-3 sm:h-3.5 sm:w-3.5" aria-hidden="true" />
                           {topic}
                         </span>
                       ))}
@@ -1006,19 +1054,19 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
                 )}
                 {Object.keys(summary.languages).length > 0 && (
                   <div>
-                    <p className="text-xs uppercase tracking-wide text-[#7a7064] mb-2 font-semibold">
+                    <p className="text-[0.65rem] sm:text-xs uppercase tracking-wide text-[#7a7064] mb-2 font-semibold">
                       Top Languages
                     </p>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
                       {Object.entries(summary.languages)
                         .sort(([, a], [, b]) => b - a)
                         .slice(0, 4)
                         .map(([language]) => (
                           <span
                             key={language}
-                            className="inline-flex items-center gap-1.5 rounded-full border border-[#e2d6c8] bg-[#f1e6d8] px-3 py-1 text-xs text-[#6f665b]"
+                            className="inline-flex items-center gap-1 sm:gap-1.5 rounded-full border border-[#e2d6c8] bg-[#f1e6d8] px-2 sm:px-3 py-0.5 sm:py-1 text-[0.65rem] sm:text-xs text-[#6f665b]"
                           >
-                            <Code className="h-3.5 w-3.5" aria-hidden="true" />
+                            <LuCode className="h-3 w-3 sm:h-3.5 sm:w-3.5" aria-hidden="true" />
                             {language}
                           </span>
                         ))}
@@ -1030,27 +1078,32 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
           )}
 
           {prGroups && prGroups.length > 0 && (
-            <div className="space-y-4">
-              <div className="space-y-3">
-                <p className="text-xs uppercase tracking-wide text-[#7a7064]">
+            <div className="space-y-3 sm:space-y-4">
+              <div className="space-y-2.5 sm:space-y-3">
+                <p className="text-[0.65rem] sm:text-xs uppercase tracking-wide text-[#7a7064]">
                   Pull Requests by Base Branch
                 </p>
                 {prGroups.length === 0 ? (
-                  <p className="text-sm text-[#6f665b]">No pull requests found.</p>
+                  <p className="text-xs sm:text-sm text-[#6f665b]">No pull requests found.</p>
                 ) : (
                   prGroups.map((group) => (
                     <div
                       key={group.base}
-                      className="rounded-xl border border-[#e2d6c8] bg-[#f3ede4] p-3"
+                      className="rounded-xl border border-[#e2d6c8] bg-[#f3ede4] p-2.5 sm:p-3 overflow-hidden"
                     >
-                      <div className="flex items-center justify-between text-sm text-[#5f564d]">
-                        <span className="inline-flex items-center gap-2 font-semibold">
-                          <GitPullRequest className="h-4 w-4" aria-hidden="true" />
-                          {group.base}
+                      <div className="flex items-center justify-between text-xs sm:text-sm text-[#5f564d]">
+                        <span className="inline-flex items-center gap-1.5 sm:gap-2 font-semibold min-w-0 flex-1">
+                          <LuGitPullRequest
+                            className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0"
+                            aria-hidden="true"
+                          />
+                          <span className="truncate">{group.base}</span>
                         </span>
-                        <span className="text-xs text-[#7a7064]">{group.count} PRs</span>
+                        <span className="text-[0.65rem] sm:text-xs text-[#7a7064] flex-shrink-0 ml-2">
+                          {group.count} PRs
+                        </span>
                       </div>
-                      <div className="mt-2 space-y-2 text-sm text-[#6f665b]">
+                      <div className="mt-2 space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-[#6f665b]">
                         {group.recent.map((pr) => (
                           <a
                             key={pr.id}
@@ -1059,11 +1112,11 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
                             rel="noreferrer"
                             className="block rounded-lg border border-transparent bg-[#fffaf2] p-2 transition hover:border-[#b8c6c3] hover:bg-[#fffdf8]"
                           >
-                            <div className="flex items-center justify-between gap-3">
-                              <span className="text-[#4f453b]">
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-3">
+                              <span className="text-[#4f453b] break-words">
                                 #{pr.number} {pr.title}
                               </span>
-                              <span className="text-xs text-[#7a7064]">
+                              <span className="text-[0.65rem] sm:text-xs text-[#7a7064] flex-shrink-0">
                                 {pr.merged_at
                                   ? "Merged"
                                   : pr.state === "closed"
@@ -1071,7 +1124,7 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
                                     : "Open"}
                               </span>
                             </div>
-                            <div className="mt-1 text-xs text-[#8a7e72]">
+                            <div className="mt-1 text-[0.65rem] sm:text-xs text-[#8a7e72]">
                               Updated {formatDate(pr.updated_at)}
                             </div>
                           </a>
@@ -1086,7 +1139,7 @@ export default function RepoCard({ repo, owner, openaiKey }: RepoCardProps) {
 
           {/* PR Analytics - Always show when expanded */}
           {summary && (
-            <div className="mt-6 pt-6 border-t-2 border-[#e2d6c8] space-y-4">
+            <div className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t-2 border-[#e2d6c8] space-y-3 sm:space-y-4">
               <PRAnalytics
                 owner={owner}
                 repo={repo.name}

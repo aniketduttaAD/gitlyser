@@ -4,6 +4,7 @@ import Image from "next/image";
 import ProfileHeader from "@/app/components/ProfileHeader";
 import ProfileAnalytics from "@/app/components/ProfileAnalytics";
 import RepoList from "@/app/components/RepoList";
+import MetricsInfoModal from "@/app/components/MetricsInfoModal";
 import { githubJson } from "@/lib/github/client";
 import type { GithubProfile, GithubRepo } from "@/lib/github/types";
 
@@ -15,6 +16,8 @@ export async function generateMetadata({ params }: ProfilePageProps): Promise<Me
   const { username } = await params;
   const sanitizedUsername = username.trim().replace(/[^a-zA-Z0-9-]/g, "");
 
+  const baseUrl = "https://gitlyser.aniketdutta.space";
+
   try {
     const profile = await githubJson<GithubProfile>(`/users/${sanitizedUsername}`).catch(
       () => null
@@ -23,41 +26,72 @@ export async function generateMetadata({ params }: ProfilePageProps): Promise<Me
     if (!profile) {
       return {
         title: `Profile Not Found - GitLyser`,
+        robots: {
+          index: false,
+          follow: false,
+        },
       };
     }
 
-    const title = `${profile.name || profile.login} - GitLyser Profile`;
+    const title = `${profile.name || profile.login} - GitHub Profile Analysis | GitLyser`;
     const description =
       profile.bio ||
-      `GitHub profile for ${profile.login}. ${profile.public_repos} repositories, ${profile.followers} followers.`;
+      `Analyze ${profile.login}'s GitHub profile: ${profile.public_repos} repositories, ${profile.followers} followers, ${profile.following} following. View tech stack, code quality metrics, PR analytics, and contribution insights.`;
+    const profileUrl = `${baseUrl}/profile/${profile.login}`;
 
     return {
       title,
       description,
+      keywords: [
+        `GitHub ${profile.login}`,
+        `${profile.login} GitHub profile`,
+        `${profile.login} repositories`,
+        `analyze ${profile.login}`,
+        "GitHub profile analyzer",
+        "GitHub stats",
+      ],
       openGraph: {
         title,
         description,
         type: "profile",
+        url: profileUrl,
+        siteName: "GitLyser",
         images: [
           {
             url: profile.avatar_url,
             width: 400,
             height: 400,
-            alt: `${profile.login} avatar`,
+            alt: `${profile.login} GitHub avatar`,
           },
         ],
-        url: `${process.env.NEXT_PUBLIC_BASE_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000")}/profile/${profile.login}`,
       },
       twitter: {
-        card: "summary",
+        card: "summary_large_image",
         title,
         description,
         images: [profile.avatar_url],
+      },
+      alternates: {
+        canonical: profileUrl,
+      },
+      robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          "max-image-preview": "large",
+          "max-snippet": -1,
+        },
       },
     };
   } catch {
     return {
       title: `Profile Not Found - GitLyser`,
+      robots: {
+        index: false,
+        follow: false,
+      },
     };
   }
 }
@@ -87,7 +121,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
 
   return (
     <div className="flex min-h-screen flex-col bg-[#f5f2ec] text-[#2f2a24]">
-      <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-8 sm:gap-10 px-4 sm:px-6 py-8 sm:py-12">
+      <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-8 sm:gap-10 px-4 sm:px-6 py-8 sm:py-12">
         <header className="space-y-4">
           <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4">
             <Image
@@ -103,6 +137,9 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
               </h1>
               <p className="text-xs sm:text-sm text-[#6f665b]">GitHub Profile Analyzer</p>
             </div>
+            <div className="flex items-center gap-2 flex-shrink-0">
+              <MetricsInfoModal />
+            </div>
           </div>
         </header>
 
@@ -114,7 +151,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
           <h2 className="text-2xl font-bold text-[#2f2a24]">Repositories</h2>
           <RepoList repos={repos} owner={profile.login} openaiKey="" />
         </div>
-      </div>
+      </main>
     </div>
   );
 }

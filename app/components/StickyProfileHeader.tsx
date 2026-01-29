@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { BookOpen, Users, User, MapPin, Building2 } from "lucide-react";
+import { LuBookOpen, LuUsers, LuUser, LuMapPin, LuBuilding2 } from "react-icons/lu";
 import type { GithubProfile } from "@/lib/github/types";
 
 type StickyProfileHeaderProps = {
@@ -53,13 +53,13 @@ export default function StickyProfileHeader({ profile, onStickyChange }: StickyP
             </a>
             {profile.location && (
               <span className="hidden md:flex items-center gap-1 text-xs text-[#6f665b]">
-                <MapPin className="h-3 w-3" aria-hidden="true" />
+                <LuMapPin className="h-3 w-3" aria-hidden="true" />
                 <span className="truncate max-w-[120px]">{profile.location}</span>
               </span>
             )}
             {profile.company && (
               <span className="hidden lg:flex items-center gap-1 text-xs text-[#6f665b]">
-                <Building2 className="h-3 w-3" aria-hidden="true" />
+                <LuBuilding2 className="h-3 w-3" aria-hidden="true" />
                 <span className="truncate max-w-[100px]">{profile.company}</span>
               </span>
             )}
@@ -67,15 +67,15 @@ export default function StickyProfileHeader({ profile, onStickyChange }: StickyP
         </div>
         <div className="flex flex-shrink-0 items-center gap-2 sm:gap-3 text-[10px] sm:text-xs text-[#6f665b] overflow-hidden">
           <div className="flex items-center gap-1 min-w-0">
-            <BookOpen className="h-3 w-3 sm:h-3.5 sm:w-3.5 flex-shrink-0" aria-hidden="true" />
+            <LuBookOpen className="h-3 w-3 sm:h-3.5 sm:w-3.5 flex-shrink-0" aria-hidden="true" />
             <span className="font-medium truncate">{profile.public_repos}</span>
           </div>
           <div className="flex items-center gap-1 min-w-0">
-            <Users className="h-3 w-3 sm:h-3.5 sm:w-3.5 flex-shrink-0" aria-hidden="true" />
+            <LuUsers className="h-3 w-3 sm:h-3.5 sm:w-3.5 flex-shrink-0" aria-hidden="true" />
             <span className="font-medium truncate">{profile.followers}</span>
           </div>
           <div className="hidden sm:flex items-center gap-1 min-w-0">
-            <User className="h-3.5 w-3.5 flex-shrink-0" aria-hidden="true" />
+            <LuUser className="h-3.5 w-3.5 flex-shrink-0" aria-hidden="true" />
             <span className="font-medium truncate">{profile.following}</span>
           </div>
         </div>

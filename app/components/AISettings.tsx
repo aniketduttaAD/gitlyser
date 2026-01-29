@@ -1,6 +1,6 @@
 "use client";
 
-import { X, Sparkles, Eye, EyeOff } from "lucide-react";
+import { LuX, LuSparkles, LuEye, LuEyeOff } from "react-icons/lu";
 import { useState, useEffect } from "react";
 
 type AISettingsProps = {
@@ -46,7 +46,7 @@ export default function AISettings({ currentKey, onSave, onClose }: AISettingsPr
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#cfdad7] bg-[#e9efee]">
-              <Sparkles className="h-5 w-5 text-[#4f6d6a]" aria-hidden="true" />
+              <LuSparkles className="h-5 w-5 text-[#4f6d6a]" aria-hidden="true" />
             </div>
             <div>
               <h2 className="text-lg font-semibold text-[#2f2a24]">Smart Summary</h2>
@@ -59,7 +59,7 @@ export default function AISettings({ currentKey, onSave, onClose }: AISettingsPr
             className="rounded-lg p-1.5 text-[#6f665b] transition hover:bg-[#e2d6c8]"
             aria-label="Close"
           >
-            <X className="h-5 w-5" aria-hidden="true" />
+            <LuX className="h-5 w-5" aria-hidden="true" />
           </button>
         </div>
         <div className="space-y-4">
@@ -86,9 +86,9 @@ export default function AISettings({ currentKey, onSave, onClose }: AISettingsPr
                 aria-label={showKey ? "Hide API key" : "Show API key"}
               >
                 {showKey ? (
-                  <EyeOff className="h-4 w-4" aria-hidden="true" />
+                  <LuEyeOff className="h-4 w-4" aria-hidden="true" />
                 ) : (
-                  <Eye className="h-4 w-4" aria-hidden="true" />
+                  <LuEye className="h-4 w-4" aria-hidden="true" />
                 )}
               </button>
             </div>

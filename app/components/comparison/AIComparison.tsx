@@ -1,7 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { Sparkles, FileText, Code2, BarChart3, Loader2, AlertCircle } from "lucide-react";
+import {
+  LuSparkles,
+  LuFileText,
+  LuCode,
+  LuChartBar,
+  LuLoader,
+  LuCircleAlert,
+} from "react-icons/lu";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { GithubProfile, GithubRepo } from "@/lib/github/types";
@@ -27,7 +34,7 @@ export default function AIComparison({ profiles, reposList, openaiKey }: AICompa
     return (
       <div className="rounded-2xl border border-[#e2d6c8] bg-[#fbf7f0] p-4 sm:p-6 shadow-sm">
         <div className="flex items-center gap-2 text-[#6f665b]">
-          <AlertCircle className="h-4 w-4" />
+          <LuCircleAlert className="h-4 w-4" />
           <p className="text-sm">
             OpenAI API key required for AI comparison. Please add your key in settings.
           </p>
@@ -153,7 +160,7 @@ export default function AIComparison({ profiles, reposList, openaiKey }: AICompa
     <div className="space-y-4">
       <div className="rounded-2xl border border-[#e2d6c8] bg-[#fbf7f0] p-4 sm:p-6 shadow-sm">
         <div className="flex items-center gap-2 mb-4">
-          <Sparkles className="h-5 w-5 text-[#4f6d6a]" />
+          <LuSparkles className="h-5 w-5 text-[#4f6d6a]" />
           <h3 className="text-lg font-semibold text-[#2f2a24]">AI-Powered Comparison</h3>
         </div>
 
@@ -174,7 +181,7 @@ export default function AIComparison({ profiles, reposList, openaiKey }: AICompa
                     : "border-[#e2d6c8] bg-[#fffdf8] hover:border-[#cfdad7]"
                 }`}
               >
-                <FileText className="h-4 w-4 text-[#6f665b] mb-1" />
+                <LuFileText className="h-4 w-4 text-[#6f665b] mb-1" />
                 <p className="text-sm font-semibold text-[#2f2a24]">Role Match</p>
                 <p className="text-xs text-[#6f665b]">Match against JD</p>
               </button>
@@ -190,7 +197,7 @@ export default function AIComparison({ profiles, reposList, openaiKey }: AICompa
                     : "border-[#e2d6c8] bg-[#fffdf8] hover:border-[#cfdad7]"
                 }`}
               >
-                <Code2 className="h-4 w-4 text-[#6f665b] mb-1" />
+                <LuCode className="h-4 w-4 text-[#6f665b] mb-1" />
                 <p className="text-sm font-semibold text-[#2f2a24]">Technical Skills</p>
                 <p className="text-xs text-[#6f665b]">Compare tech stack</p>
               </button>
@@ -206,7 +213,7 @@ export default function AIComparison({ profiles, reposList, openaiKey }: AICompa
                     : "border-[#e2d6c8] bg-[#fffdf8] hover:border-[#cfdad7]"
                 }`}
               >
-                <BarChart3 className="h-4 w-4 text-[#6f665b] mb-1" />
+                <LuChartBar className="h-4 w-4 text-[#6f665b] mb-1" />
                 <p className="text-sm font-semibold text-[#2f2a24]">Overall Assessment</p>
                 <p className="text-xs text-[#6f665b]">Comprehensive view</p>
               </button>
@@ -242,12 +249,12 @@ export default function AIComparison({ profiles, reposList, openaiKey }: AICompa
           >
             {loading ? (
               <>
-                <Loader2 className="h-4 w-4 animate-spin" />
+                <LuLoader className="h-4 w-4 animate-spin" />
                 <span>Analyzing...</span>
               </>
             ) : (
               <>
-                <Sparkles className="h-4 w-4" />
+                <LuSparkles className="h-4 w-4" />
                 <span>Generate AI Comparison</span>
               </>
             )}
@@ -275,7 +282,7 @@ export default function AIComparison({ profiles, reposList, openaiKey }: AICompa
       {dataUsageNote && (
         <div className="rounded-xl border border-[#cfdad7] bg-[#e9efee] p-4 text-sm text-[#5f564d]">
           <div className="flex items-start gap-2">
-            <AlertCircle className="h-4 w-4 text-[#4f6d6a] flex-shrink-0 mt-0.5" />
+            <LuCircleAlert className="h-4 w-4 text-[#4f6d6a] flex-shrink-0 mt-0.5" />
             <div className="flex-1">
               <p className="font-semibold text-[#4f6d6a] mb-2">Data Considered in Analysis</p>
               <div className="prose prose-xs max-w-none prose-ul:text-[#6f665b] prose-li:text-[#6f665b] prose-strong:text-[#4f6d6a]">

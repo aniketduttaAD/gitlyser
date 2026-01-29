@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { GitCommit, AlertCircle, Code, TrendingUp, Clock } from "lucide-react";
+import { LuCircleAlert, LuCode, LuTrendingUp, LuClock, LuGitCommitVertical } from "react-icons/lu";
 import type { GithubProfile, GithubRepo } from "@/lib/github/types";
 
 type ComparisonAdvancedMetricsProps = {
@@ -164,21 +164,21 @@ export default function ComparisonAdvancedMetrics({
                 <div className="grid grid-cols-2 gap-2">
                   <div className="rounded-lg border border-[#e2d6c8] bg-[#f3ede4] p-2">
                     <div className="flex items-center gap-1 mb-1">
-                      <AlertCircle className="h-3 w-3 text-[#6f665b]" />
+                      <LuCircleAlert className="h-3 w-3 text-[#6f665b]" />
                       <span className="text-xs text-[#7a7064]">Open Issues</span>
                     </div>
                     <p className="text-lg font-bold text-[#2f2a24]">{metric.totalOpenIssues}</p>
                   </div>
                   <div className="rounded-lg border border-[#e2d6c8] bg-[#f3ede4] p-2">
                     <div className="flex items-center gap-1 mb-1">
-                      <Code className="h-3 w-3 text-[#6f665b]" />
+                      <LuCode className="h-3 w-3 text-[#6f665b]" />
                       <span className="text-xs text-[#7a7064]">Languages</span>
                     </div>
                     <p className="text-lg font-bold text-[#2f2a24]">{metric.languagesCount}</p>
                   </div>
                   <div className="rounded-lg border border-[#e2d6c8] bg-[#f3ede4] p-2">
                     <div className="flex items-center gap-1 mb-1">
-                      <TrendingUp className="h-3 w-3 text-[#6f665b]" />
+                      <LuTrendingUp className="h-3 w-3 text-[#6f665b]" />
                       <span className="text-xs text-[#7a7064]">Avg Size</span>
                     </div>
                     <p className="text-sm font-bold text-[#2f2a24]">
@@ -187,7 +187,7 @@ export default function ComparisonAdvancedMetrics({
                   </div>
                   <div className="rounded-lg border border-[#e2d6c8] bg-[#f3ede4] p-2">
                     <div className="flex items-center gap-1 mb-1">
-                      <GitCommit className="h-3 w-3 text-[#6f665b]" />
+                      <LuGitCommitVertical className="h-3 w-3 text-[#6f665b]" />
                       <span className="text-xs text-[#7a7064]">Watchers</span>
                     </div>
                     <p className="text-lg font-bold text-[#2f2a24]">{metric.totalWatchers}</p>
@@ -272,7 +272,7 @@ export default function ComparisonAdvancedMetrics({
                   {metric.mostStarredRepo && (
                     <div className="rounded-lg border border-[#e2d6c8] bg-[#f3ede4] p-3">
                       <div className="flex items-center gap-2 mb-1">
-                        <TrendingUp className="h-4 w-4 text-[#6f665b]" />
+                        <LuTrendingUp className="h-4 w-4 text-[#6f665b]" />
                         <span className="text-xs text-[#7a7064]">Most Starred</span>
                       </div>
                       <p className="text-sm font-semibold text-[#2f2a24] truncate">
@@ -286,7 +286,7 @@ export default function ComparisonAdvancedMetrics({
                   {metric.newestRepo && (
                     <div className="rounded-lg border border-[#e2d6c8] bg-[#f3ede4] p-3">
                       <div className="flex items-center gap-2 mb-1">
-                        <Clock className="h-4 w-4 text-[#6f665b]" />
+                        <LuClock className="h-4 w-4 text-[#6f665b]" />
                         <span className="text-xs text-[#7a7064]">Newest</span>
                       </div>
                       <p className="text-sm font-semibold text-[#2f2a24] truncate">
@@ -300,7 +300,7 @@ export default function ComparisonAdvancedMetrics({
                   {metric.oldestRepo && (
                     <div className="rounded-lg border border-[#e2d6c8] bg-[#f3ede4] p-3">
                       <div className="flex items-center gap-2 mb-1">
-                        <Clock className="h-4 w-4 text-[#6f665b]" />
+                        <LuClock className="h-4 w-4 text-[#6f665b]" />
                         <span className="text-xs text-[#7a7064]">Oldest</span>
                       </div>
                       <p className="text-sm font-semibold text-[#2f2a24] truncate">

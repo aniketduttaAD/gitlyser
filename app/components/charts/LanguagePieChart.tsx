@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from "recharts";
 import ChartContainer from "./ChartContainer";
 import { aggregateLanguages } from "@/lib/utils/chartData";
@@ -25,7 +26,17 @@ const COLORS = [
 ];
 
 export default function LanguagePieChart({ repos, summaries, loading }: LanguagePieChartProps) {
+  const [isMobile, setIsMobile] = useState(false);
   const data = aggregateLanguages(repos, summaries);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   if (data.length === 0 && !loading) {
     return (
@@ -36,19 +47,20 @@ export default function LanguagePieChart({ repos, summaries, loading }: Language
   }
 
   const total = data.reduce((sum, item) => sum + item.value, 0);
+  const outerRadius = isMobile ? 70 : 100;
 
   return (
     <ChartContainer title="Language Distribution" loading={loading}>
       <div className="[&_text]:!fill-[#2f2a24]">
-        <ResponsiveContainer width="100%" height={450}>
-          <PieChart margin={{ top: 30, right: 30, bottom: 100, left: 30 }}>
+        <ResponsiveContainer width="100%" height={isMobile ? 380 : 450}>
+          <PieChart margin={{ top: 10, right: 10, bottom: isMobile ? 70 : 100, left: 10 }}>
             <Pie
               data={data}
               cx="50%"
-              cy="45%"
+              cy={isMobile ? "42%" : "45%"}
               labelLine={false}
               label={false}
-              outerRadius={100}
+              outerRadius={outerRadius}
               fill="#8884d8"
               dataKey="value"
             >
@@ -66,20 +78,21 @@ export default function LanguagePieChart({ repos, summaries, loading }: Language
                 backgroundColor: "#fbf7f0",
                 border: "1px solid #e2d6c8",
                 borderRadius: "8px",
-                fontSize: "13px",
+                fontSize: "11px",
                 fontWeight: 500,
+                padding: "6px 8px",
               }}
             />
             <Legend
               wrapperStyle={{
-                fontSize: "12px",
+                fontSize: "10px",
                 fontWeight: 600,
                 color: "#2f2a24",
-                paddingTop: "10px",
+                paddingTop: "8px",
               }}
               iconType="circle"
               verticalAlign="bottom"
-              height={80}
+              height={60}
               layout="horizontal"
               align="center"
               formatter={(value: string) => {

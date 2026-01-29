@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOpen, Users, Star, GitFork } from "lucide-react";
+import { LuBookOpen, LuUsers, LuStar, LuGitFork } from "react-icons/lu";
 import type { GithubProfile, GithubRepo } from "@/lib/github/types";
 
 type ComparisonMetricsProps = {
@@ -37,7 +37,7 @@ export default function ComparisonMetrics({ profiles, reposList }: ComparisonMet
         {/* Repositories */}
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <BookOpen className="h-4 w-4 text-[#6f665b]" />
+            <LuBookOpen className="h-4 w-4 text-[#6f665b]" />
             <span className="text-sm font-medium text-[#5f564d]">Public Repositories</span>
           </div>
           <div className="space-y-2">
@@ -61,7 +61,7 @@ export default function ComparisonMetrics({ profiles, reposList }: ComparisonMet
         {/* Followers */}
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <Users className="h-4 w-4 text-[#6f665b]" />
+            <LuUsers className="h-4 w-4 text-[#6f665b]" />
             <span className="text-sm font-medium text-[#5f564d]">Followers</span>
           </div>
           <div className="space-y-2">
@@ -85,7 +85,7 @@ export default function ComparisonMetrics({ profiles, reposList }: ComparisonMet
         {/* Total Stars */}
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <Star className="h-4 w-4 text-[#6f665b]" />
+            <LuStar className="h-4 w-4 text-[#6f665b]" />
             <span className="text-sm font-medium text-[#5f564d]">Total Stars</span>
           </div>
           <div className="space-y-2">
@@ -111,7 +111,7 @@ export default function ComparisonMetrics({ profiles, reposList }: ComparisonMet
         {/* Total Forks */}
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <GitFork className="h-4 w-4 text-[#6f665b]" />
+            <LuGitFork className="h-4 w-4 text-[#6f665b]" />
             <span className="text-sm font-medium text-[#5f564d]">Total Forks</span>
           </div>
           <div className="grid grid-cols-2 gap-4">

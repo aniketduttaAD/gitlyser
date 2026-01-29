@@ -145,15 +145,17 @@ export default function ContributionHeatmap({
   };
 
   return (
-    <div className="rounded-2xl border border-[#e2d6c8] bg-[#fbf7f0] p-4 sm:p-6 shadow-sm">
-      <div className="mb-4">
-        <div className="flex items-center justify-between mb-2">
-          <h3 className="text-lg font-semibold text-[#2f2a24]">Contribution Heatmap</h3>
+    <div className="rounded-2xl border border-[#e2d6c8] bg-[#fbf7f0] p-2.5 sm:p-6 shadow-sm overflow-hidden">
+      <div className="mb-2.5 sm:mb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
+          <h3 className="text-base sm:text-lg font-semibold text-[#2f2a24]">
+            Contribution Heatmap
+          </h3>
           {availableYears.length > 1 && (
             <select
               value={selectedYear}
               onChange={(e) => setSelectedYear(parseInt(e.target.value, 10))}
-              className="rounded-lg border border-[#e2d6c8] bg-[#fffdf8] px-3 py-1.5 text-sm text-[#2f2a24] focus:outline-none focus:ring-2 focus:ring-[#4f6d6a]"
+              className="rounded-lg border border-[#e2d6c8] bg-[#fffdf8] px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm text-[#2f2a24] focus:outline-none focus:ring-2 focus:ring-[#4f6d6a] w-full sm:w-auto"
             >
               {availableYears.map((year) => (
                 <option key={year} value={year}>
@@ -163,19 +165,19 @@ export default function ContributionHeatmap({
             </select>
           )}
         </div>
-        <p className="text-sm text-[#6f665b]">
+        <p className="text-xs sm:text-sm text-[#6f665b]">
           {data.totalContributions} contribution{data.totalContributions !== 1 ? "s" : ""} in{" "}
           {selectedYear}
         </p>
       </div>
 
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto -mx-3 sm:mx-0 px-3 sm:px-0">
         <div className="inline-block min-w-full">
-          <div className="flex mb-2">
+          <div className="flex mb-1.5 sm:mb-2">
             {monthLabels.map((month, index) => (
               <div
                 key={index}
-                className="text-xs text-[#6f665b] flex-shrink-0"
+                className="text-[0.65rem] sm:text-xs text-[#6f665b] flex-shrink-0"
                 style={{ width: `${100 / monthLabels.length}%` }}
               >
                 {month}
@@ -183,9 +185,9 @@ export default function ContributionHeatmap({
             ))}
           </div>
 
-          <div className="flex gap-1">
+          <div className="flex gap-0.5 sm:gap-1">
             {weeks.map((week, weekIndex) => (
-              <div key={weekIndex} className="flex flex-col gap-1">
+              <div key={weekIndex} className="flex flex-col gap-0.5 sm:gap-1">
                 {week.map((contribution, dayIndex) => {
                   const level = getContributionLevel(
                     contribution.count,
@@ -196,7 +198,7 @@ export default function ContributionHeatmap({
                   return (
                     <div
                       key={`${weekIndex}-${dayIndex}`}
-                      className={`w-3 h-3 rounded-sm ${colorClass} cursor-pointer transition-all hover:scale-125 hover:ring-2 hover:ring-[#4f6d6a]`}
+                      className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-sm ${colorClass} cursor-pointer transition-all hover:scale-125 hover:ring-2 hover:ring-[#4f6d6a]`}
                       onMouseEnter={() => setHoveredDate(contribution)}
                       onMouseLeave={() => setHoveredDate(null)}
                       title={`${formatDate(contribution.date)}: ${contribution.count} contribution${contribution.count !== 1 ? "s" : ""}`}
@@ -209,20 +211,35 @@ export default function ContributionHeatmap({
         </div>
       </div>
 
-      <div className="mt-4 flex items-center justify-center gap-4 text-xs text-[#6f665b]">
+      <div className="mt-3 sm:mt-4 flex items-center justify-center gap-2 sm:gap-4 text-[0.65rem] sm:text-xs text-[#6f665b]">
         <span>Less</span>
-        <div className="flex gap-1">
-          <div className="w-3 h-3 rounded-sm bg-[#ebedf0]" title="No contributions" />
-          <div className="w-3 h-3 rounded-sm bg-[#9be9a8]" title="1-3 contributions" />
-          <div className="w-3 h-3 rounded-sm bg-[#40c463]" title="4-6 contributions" />
-          <div className="w-3 h-3 rounded-sm bg-[#30a14e]" title="7-9 contributions" />
-          <div className="w-3 h-3 rounded-sm bg-[#216e39]" title="10+ contributions" />
+        <div className="flex gap-0.5 sm:gap-1">
+          <div
+            className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-sm bg-[#ebedf0]"
+            title="No contributions"
+          />
+          <div
+            className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-sm bg-[#9be9a8]"
+            title="1-3 contributions"
+          />
+          <div
+            className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-sm bg-[#40c463]"
+            title="4-6 contributions"
+          />
+          <div
+            className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-sm bg-[#30a14e]"
+            title="7-9 contributions"
+          />
+          <div
+            className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-sm bg-[#216e39]"
+            title="10+ contributions"
+          />
         </div>
         <span>More</span>
       </div>
 
       {hoveredDate && (
-        <div className="mt-2 p-2 rounded-lg border border-[#e2d6c8] bg-[#fffdf8] text-sm text-[#2f2a24]">
+        <div className="mt-2 p-2 rounded-lg border border-[#e2d6c8] bg-[#fffdf8] text-xs sm:text-sm text-[#2f2a24]">
           <strong>{formatDate(hoveredDate.date)}</strong>: {hoveredDate.count} contribution
           {hoveredDate.count !== 1 ? "s" : ""}
         </div>

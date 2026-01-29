@@ -1,18 +1,18 @@
 import Image from "next/image";
 import {
-  BookOpen,
-  Building2,
-  CalendarDays,
-  CheckCircle2,
-  Globe,
-  MapPin,
-  Twitter,
-  User,
-  Users,
-  Star,
-  AlertCircle,
-  ExternalLink,
-} from "lucide-react";
+  LuBookOpen,
+  LuBuilding2,
+  LuCalendarDays,
+  LuGlobe,
+  LuMapPin,
+  LuTwitter,
+  LuUser,
+  LuUsers,
+  LuStar,
+  LuExternalLink,
+  LuBadgeCheck,
+  LuCircleAlert,
+} from "react-icons/lu";
 import type { GithubProfile } from "@/lib/github/types";
 
 type ProfileHeaderProps = {
@@ -67,9 +67,9 @@ export default function ProfileHeader({ profile }: ProfileHeaderProps) {
       </div>
       <div className="grid flex-1 grid-cols-2 gap-3 sm:gap-4 text-sm text-[#6f665b] sm:grid-cols-3">
         {[
-          { label: "Repos", value: profile.public_repos, Icon: BookOpen },
-          { label: "Followers", value: profile.followers, Icon: Users },
-          { label: "Following", value: profile.following, Icon: User },
+          { label: "Repos", value: profile.public_repos, Icon: LuBookOpen },
+          { label: "Followers", value: profile.followers, Icon: LuUsers },
+          { label: "Following", value: profile.following, Icon: LuUser },
         ].map(({ label, value, Icon }) => (
           <div
             key={label}
@@ -95,13 +95,13 @@ export default function ProfileHeader({ profile }: ProfileHeaderProps) {
         <div className="flex flex-wrap gap-2 text-xs text-[#6f665b]">
           {profile.company && (
             <span className="flex items-center gap-2 rounded-full border border-[#e2d6c8] bg-[#fffdf8] px-3 py-1">
-              <Building2 className="h-3.5 w-3.5" aria-hidden="true" />
+              <LuBuilding2 className="h-3.5 w-3.5" aria-hidden="true" />
               {profile.company}
             </span>
           )}
           {profile.location && (
             <span className="flex items-center gap-2 rounded-full border border-[#e2d6c8] bg-[#fffdf8] px-3 py-1">
-              <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
+              <LuMapPin className="h-3.5 w-3.5" aria-hidden="true" />
               {profile.location}
             </span>
           )}
@@ -112,7 +112,7 @@ export default function ProfileHeader({ profile }: ProfileHeaderProps) {
               target="_blank"
               rel="noreferrer"
             >
-              <Globe className="h-3.5 w-3.5" aria-hidden="true" />
+              <LuGlobe className="h-3.5 w-3.5" aria-hidden="true" />
               {profile.blog}
             </a>
           )}
@@ -123,26 +123,26 @@ export default function ProfileHeader({ profile }: ProfileHeaderProps) {
               target="_blank"
               rel="noreferrer"
             >
-              <Twitter className="h-3.5 w-3.5" aria-hidden="true" />@{profile.twitter_username}
+              <LuTwitter className="h-3.5 w-3.5" aria-hidden="true" />@{profile.twitter_username}
             </a>
           )}
           <span className="flex items-center gap-2 rounded-full border border-[#e2d6c8] bg-[#fffdf8] px-3 py-1">
-            <CalendarDays className="h-3.5 w-3.5" aria-hidden="true" />
+            <LuCalendarDays className="h-3.5 w-3.5" aria-hidden="true" />
             Member since {memberSince}
           </span>
           <span className="flex items-center gap-2 rounded-full border border-[#e2d6c8] bg-[#fffdf8] px-3 py-1">
-            <CalendarDays className="h-3.5 w-3.5" aria-hidden="true" />
+            <LuCalendarDays className="h-3.5 w-3.5" aria-hidden="true" />
             Updated {lastUpdated}
           </span>
           {profile.hireable && (
             <span className="flex items-center gap-2 rounded-full border border-[#cfe2d1] bg-[#eff6f0] px-3 py-1 text-[#426a4b]">
-              <CheckCircle2 className="h-3.5 w-3.5" aria-hidden="true" />
+              <LuBadgeCheck className="h-3.5 w-3.5" aria-hidden="true" />
               Open to work
             </span>
           )}
           {profile.suspended_at && (
             <span className="flex items-center gap-2 rounded-full border border-[#efc6c0] bg-[#f9ebe8] px-3 py-1 text-[#a24f45]">
-              <AlertCircle className="h-3.5 w-3.5" aria-hidden="true" />
+              <LuCircleAlert className="h-3.5 w-3.5" aria-hidden="true" />
               Suspended {new Date(profile.suspended_at).toLocaleDateString()}
             </span>
           )}
@@ -153,9 +153,9 @@ export default function ProfileHeader({ profile }: ProfileHeaderProps) {
               target="_blank"
               rel="noreferrer"
             >
-              <Star className="h-3.5 w-3.5" aria-hidden="true" />
+              <LuStar className="h-3.5 w-3.5" aria-hidden="true" />
               Starred repos
-              <ExternalLink className="h-3 w-3" aria-hidden="true" />
+              <LuExternalLink className="h-3 w-3" aria-hidden="true" />
             </a>
           )}
         </div>

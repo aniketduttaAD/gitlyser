@@ -25,16 +25,6 @@ const sleep = (ms: number) =>
 
 /**
  * Get GitHub authentication headers.
- *
- * SECURITY: This function is ONLY called server-side in API routes.
- * The GITHUB_TOKEN environment variable is NEVER exposed to client-side code.
- *
- * - Token is stored in Vercel environment variables (production)
- * - Token is stored in .env.local (development, gitignored)
- * - Token is NEVER included in client bundles or network responses
- * - App works gracefully without token (lower rate limits)
- *
- * @returns Authorization header object or empty object if no token
  */
 const getAuthHeaders = () => {
   const token = process.env.GITHUB_TOKEN;
@@ -121,7 +111,7 @@ export const githubText = async (
 };
 
 /**
- * Fetch raw file content from GitHub (base64 decoded)
+ * Fetch raw file content from GitHub
  */
 export const githubRaw = async (path: string, init?: RequestInit): Promise<string | null> => {
   try {

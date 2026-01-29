@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, GitCompare, Loader2 } from "lucide-react";
+import { LuSearch, LuGitCompare, LuLoader } from "react-icons/lu";
 import { useState, useEffect, useCallback, type FormEvent } from "react";
 import Image from "next/image";
 
@@ -104,12 +104,12 @@ export default function SearchBar({
             GitHub Username
           </label>
           <div className="relative">
-            <Search
+            <LuSearch
               className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#9a8e80]"
               aria-hidden="true"
             />
             {searching && (
-              <Loader2 className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#9a8e80] animate-spin" />
+              <LuLoader className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#9a8e80] animate-spin" />
             )}
             <input
               id="username"
@@ -166,7 +166,7 @@ export default function SearchBar({
               disabled={loading || value.trim().length === 0}
               className="h-10 sm:h-11 rounded-xl border border-[#cfdad7] bg-[#e9efee] px-4 text-xs sm:text-sm font-semibold text-[#4f6d6a] shadow-sm transition hover:border-[#b8c6c3] hover:bg-[#d9e5e4] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4f6d6a] disabled:cursor-not-allowed disabled:opacity-50 md:self-end flex items-center gap-2"
             >
-              <GitCompare className="h-4 w-4" />
+              <LuGitCompare className="h-4 w-4" />
               <span>Compare</span>
             </button>
           )}

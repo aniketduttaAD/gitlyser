@@ -10,7 +10,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { Clock, TrendingUp, Package, AlertCircle } from "lucide-react";
+import { LuClock, LuTrendingUp, LuPackage, LuCircleAlert } from "react-icons/lu";
 import type { CodeQualityMetrics } from "@/lib/github/types";
 import ChartSkeleton from "./skeletons/ChartSkeleton";
 
@@ -112,39 +112,44 @@ export default function CodeQualityMetrics({
   }
 
   return (
-    <div className="rounded-lg border border-[#e2d6c8] bg-[#fbf7f0] p-3 shadow-sm">
-      <div className="mb-3">
-        <h3 className="text-xs font-semibold text-[#2f2a24] uppercase tracking-wide mb-2">
+    <div className="rounded-lg border border-[#e2d6c8] bg-[#fbf7f0] p-2.5 sm:p-3 shadow-sm overflow-hidden">
+      <div className="mb-2.5 sm:mb-3">
+        <h3 className="text-[0.65rem] sm:text-xs font-semibold text-[#2f2a24] uppercase tracking-wide mb-2">
           Code Quality Metrics
         </h3>
 
         {/* Key Metrics */}
-        <div className="grid grid-cols-3 gap-2 mb-3">
-          <div className="rounded-lg border border-[#e2d6c8] bg-[#f3ede4] p-2">
-            <div className="flex items-center gap-1.5 mb-0.5">
-              <Clock className="h-3 w-3 text-[#6f665b]" />
-              <span className="text-xs text-[#7a7064]">Avg Review</span>
+        <div className="grid grid-cols-3 gap-1.5 sm:gap-2 mb-2.5 sm:mb-3">
+          <div className="rounded-lg border border-[#e2d6c8] bg-[#f3ede4] p-1.5 sm:p-2">
+            <div className="flex items-center gap-1 sm:gap-1.5 mb-0.5">
+              <LuClock className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-[#6f665b]" />
+              <span className="text-[0.65rem] sm:text-xs text-[#7a7064]">Avg Review</span>
             </div>
-            <p className="text-sm font-bold text-[#2f2a24]">
+            <p className="text-xs sm:text-sm font-bold text-[#2f2a24]">
               {data.averagePRReviewTime > 0 ? `${data.averagePRReviewTime.toFixed(1)}h` : "N/A"}
             </p>
           </div>
-          <div className="rounded-lg border border-[#e2d6c8] bg-[#f3ede4] p-2">
-            <div className="flex items-center gap-1.5 mb-0.5">
-              <TrendingUp className="h-3 w-3 text-[#6f665b]" />
-              <span className="text-xs text-[#7a7064]">Avg Churn</span>
+          <div className="rounded-lg border border-[#e2d6c8] bg-[#f3ede4] p-1.5 sm:p-2">
+            <div className="flex items-center gap-1 sm:gap-1.5 mb-0.5">
+              <LuTrendingUp className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-[#6f665b]" />
+              <span className="text-[0.65rem] sm:text-xs text-[#7a7064]">Avg Churn</span>
             </div>
-            <p className="text-sm font-bold text-[#2f2a24]">{data.averageChurnPerCommit}</p>
+            <p className="text-xs sm:text-sm font-bold text-[#2f2a24]">
+              {data.averageChurnPerCommit}
+            </p>
           </div>
-          <div className="rounded-lg border border-[#e2d6c8] bg-[#f3ede4] p-2">
-            <div className="flex items-center gap-1.5 mb-0.5">
-              <Package className="h-3 w-3 text-[#6f665b]" />
-              <span className="text-xs text-[#7a7064]">Deps</span>
+          <div className="rounded-lg border border-[#e2d6c8] bg-[#f3ede4] p-1.5 sm:p-2">
+            <div className="flex items-center gap-1 sm:gap-1.5 mb-0.5">
+              <LuPackage className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-[#6f665b]" />
+              <span className="text-[0.65rem] sm:text-xs text-[#7a7064]">Deps</span>
             </div>
-            <p className="text-sm font-bold text-[#2f2a24]">
+            <p className="text-xs sm:text-sm font-bold text-[#2f2a24] leading-tight">
               {data.dependencyHealth.total}
               {data.dependencyHealth.outdated > 0 && (
-                <span className="text-[#a24f45]"> ({data.dependencyHealth.outdated} outdated)</span>
+                <span className="text-[#a24f45] block sm:inline">
+                  {" "}
+                  ({data.dependencyHealth.outdated} outdated)
+                </span>
               )}
             </p>
           </div>
@@ -152,26 +157,33 @@ export default function CodeQualityMetrics({
 
         {/* Code Churn Chart */}
         {data.codeChurn.length > 0 && (
-          <div className="mb-3">
-            <h4 className="text-xs font-semibold text-[#5f564d] mb-2">Code Churn (Last 30 Days)</h4>
-            <ResponsiveContainer width="100%" height={150}>
-              <LineChart data={data.codeChurn} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+          <div className="mb-2.5 sm:mb-3">
+            <h4 className="text-[0.65rem] sm:text-xs font-semibold text-[#5f564d] uppercase tracking-wide mb-1.5 sm:mb-2">
+              Code Churn (Last 30 Days)
+            </h4>
+            <ResponsiveContainer width="100%" height={120} className="sm:h-[150px]">
+              <LineChart data={data.codeChurn} margin={{ top: 5, right: 5, left: -10, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e2d6c8" />
                 <XAxis
                   dataKey="date"
                   stroke="#2f2a24"
-                  tick={{ fill: "#2f2a24", fontSize: 9, fontWeight: 500 }}
+                  tick={{ fill: "#2f2a24", fontSize: 8, fontWeight: 500 }}
                   tickFormatter={(value) =>
                     new Date(value).toLocaleDateString("en-US", { month: "short", day: "numeric" })
                   }
                 />
-                <YAxis stroke="#2f2a24" tick={{ fill: "#2f2a24", fontSize: 9, fontWeight: 500 }} />
+                <YAxis
+                  stroke="#2f2a24"
+                  tick={{ fill: "#2f2a24", fontSize: 8, fontWeight: 500 }}
+                  width={35}
+                />
                 <Tooltip
                   contentStyle={{
                     backgroundColor: "#fbf7f0",
                     border: "1px solid #e2d6c8",
                     borderRadius: "8px",
-                    fontSize: "11px",
+                    fontSize: "10px",
+                    padding: "4px 6px",
                   }}
                   formatter={(value: number | undefined) => (value ?? 0).toLocaleString()}
                 />
@@ -190,16 +202,19 @@ export default function CodeQualityMetrics({
 
         {/* Recommendations */}
         {data.recommendations.length > 0 && (
-          <div className="space-y-1">
-            <h4 className="text-xs font-semibold text-[#2f2a24] flex items-center gap-1.5">
-              <AlertCircle className="h-3 w-3" />
+          <div className="space-y-0.5 sm:space-y-1">
+            <h4 className="text-[0.65rem] sm:text-xs font-semibold text-[#2f2a24] flex items-center gap-1 sm:gap-1.5">
+              <LuCircleAlert className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
               Recommendations
             </h4>
-            <ul className="space-y-1">
+            <ul className="space-y-0.5 sm:space-y-1">
               {data.recommendations.slice(0, 3).map((rec, index) => (
-                <li key={index} className="text-xs text-[#6f665b] flex items-start gap-1.5">
-                  <span className="text-[#4f6d6a] mt-0.5">•</span>
-                  <span>{rec}</span>
+                <li
+                  key={index}
+                  className="text-[0.65rem] sm:text-xs text-[#6f665b] flex items-start gap-1 sm:gap-1.5"
+                >
+                  <span className="text-[#4f6d6a] mt-0.5 flex-shrink-0">•</span>
+                  <span className="break-words">{rec}</span>
                 </li>
               ))}
             </ul>

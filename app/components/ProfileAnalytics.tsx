@@ -1,11 +1,30 @@
 "use client";
 
-import LanguagePieChart from "./charts/LanguagePieChart";
-import LanguageBarChart from "./charts/LanguageBarChart";
-import RepoSizeChart from "./charts/RepoSizeChart";
+import dynamic from "next/dynamic";
 import ContributionHeatmap from "./ContributionHeatmap";
 import ActivityTimeline from "./ActivityTimeline";
 import type { GithubRepo, RepoSummaryResponse, GithubProfile } from "@/lib/github/types";
+
+const LanguagePieChart = dynamic(() => import("./charts/LanguagePieChart"), {
+  loading: () => (
+    <div className="h-[380px] sm:h-[450px] rounded-2xl border border-[#e2d6c8] bg-[#fbf7f0] animate-pulse" />
+  ),
+  ssr: false,
+});
+
+const LanguageBarChart = dynamic(() => import("./charts/LanguageBarChart"), {
+  loading: () => (
+    <div className="h-[380px] sm:h-[450px] rounded-2xl border border-[#e2d6c8] bg-[#fbf7f0] animate-pulse" />
+  ),
+  ssr: false,
+});
+
+const RepoSizeChart = dynamic(() => import("./charts/RepoSizeChart"), {
+  loading: () => (
+    <div className="h-[380px] sm:h-[450px] rounded-2xl border border-[#e2d6c8] bg-[#fbf7f0] animate-pulse" />
+  ),
+  ssr: false,
+});
 
 type ProfileAnalyticsProps = {
   repos: GithubRepo[];
@@ -25,9 +44,9 @@ export default function ProfileAnalytics({
   }
 
   return (
-    <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-[#2f2a24]">Charts & Visualizations</h2>
-      <div className="grid gap-6 md:grid-cols-2">
+    <div className="space-y-4 sm:space-y-6">
+      <h2 className="text-xl sm:text-2xl font-bold text-[#2f2a24]">Charts & Visualizations</h2>
+      <div className="grid gap-3 sm:gap-6 md:grid-cols-2">
         <div className="md:col-span-1">
           <LanguagePieChart repos={repos} summaries={summaries} loading={loading} />
         </div>

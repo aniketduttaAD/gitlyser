@@ -1,0 +1,17 @@
+{
+  "name": "GitLyser - GitHub Profile Analyzer",
+  "short_name": "GitLyser",
+  "description": "Analyze GitHub profiles with comprehensive insights: repository summaries, tech stack detection, PR analytics, code quality metrics, and contribution visualizations",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f2ec",
+  "theme_color": "#2f2a24",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

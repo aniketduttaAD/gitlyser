@@ -1,6 +1,13 @@
 "use client";
 
-import { X, CalendarDays, MapPin, Building2, Globe, ExternalLink } from "lucide-react";
+import {
+  LuX,
+  LuCalendarDays,
+  LuMapPin,
+  LuBuilding2,
+  LuGlobe,
+  LuExternalLink,
+} from "react-icons/lu";
 import Image from "next/image";
 import type { GithubProfile, GithubRepo } from "@/lib/github/types";
 import ComparisonMetrics from "./comparison/ComparisonMetrics";
@@ -64,7 +71,7 @@ export default function ComparisonView({
                 className="absolute top-3 right-3 p-1.5 rounded-full hover:bg-[#f3ede4] transition z-10"
                 aria-label="Remove profile"
               >
-                <X className="h-4 w-4 text-[#6f665b]" />
+                <LuX className="h-4 w-4 text-[#6f665b]" />
               </button>
 
               <div className="flex items-start gap-4 mb-4">
@@ -94,18 +101,18 @@ export default function ComparisonView({
                   <div className="flex flex-wrap gap-2 text-xs">
                     {profile.location && (
                       <span className="flex items-center gap-1 text-[#6f665b]">
-                        <MapPin className="h-3 w-3" />
+                        <LuMapPin className="h-3 w-3" />
                         {profile.location}
                       </span>
                     )}
                     {profile.company && (
                       <span className="flex items-center gap-1 text-[#6f665b]">
-                        <Building2 className="h-3 w-3" />
+                        <LuBuilding2 className="h-3 w-3" />
                         {profile.company}
                       </span>
                     )}
                     <span className="flex items-center gap-1 text-[#6f665b]">
-                      <CalendarDays className="h-3 w-3" />
+                      <LuCalendarDays className="h-3 w-3" />
                       Since {memberSince}
                     </span>
                   </div>
@@ -146,10 +153,10 @@ export default function ComparisonView({
                     className="flex items-center justify-between hover:text-[#4f6d6a] transition"
                   >
                     <span className="flex items-center gap-1">
-                      <Globe className="h-3 w-3" />
+                      <LuGlobe className="h-3 w-3" />
                       Website
                     </span>
-                    <ExternalLink className="h-3 w-3" />
+                    <LuExternalLink className="h-3 w-3" />
                   </a>
                 )}
                 <div className="flex items-center justify-between">

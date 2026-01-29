@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Clock, GitMerge, TrendingUp, Users } from "lucide-react";
+import { LuClock, LuGitMerge, LuTrendingUp, LuUsers } from "react-icons/lu";
 import type { PRAnalytics } from "@/lib/github/types";
 import ChartSkeleton from "./skeletons/ChartSkeleton";
 
@@ -82,65 +82,73 @@ export default function PRAnalytics({
     { name: "Large (>500)", value: analytics.prSizeAnalysis.large },
   ];
 
+  const hasPRSizeData = prSizeData.some((item) => item.value > 0);
+
   return (
-    <div className="space-y-3">
-      <h3 className="text-sm font-semibold text-[#2f2a24] uppercase tracking-wide">PR Analytics</h3>
+    <div className="space-y-2.5 sm:space-y-3 overflow-hidden">
+      <h3 className="text-xs sm:text-sm font-semibold text-[#2f2a24] uppercase tracking-wide">
+        PR Analytics
+      </h3>
 
       {/* Key Metrics */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-        <div className="rounded-lg border border-[#e2d6c8] bg-[#f3ede4] p-2">
-          <div className="flex items-center gap-1.5 mb-0.5">
-            <GitMerge className="h-3.5 w-3.5 text-[#6f665b]" />
-            <span className="text-xs text-[#7a7064]">Total PRs</span>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-1.5 sm:gap-2">
+        <div className="rounded-lg border border-[#e2d6c8] bg-[#f3ede4] p-1.5 sm:p-2">
+          <div className="flex items-center gap-1 sm:gap-1.5 mb-0.5">
+            <LuGitMerge className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-[#6f665b]" />
+            <span className="text-[0.65rem] sm:text-xs text-[#7a7064]">Total PRs</span>
           </div>
-          <p className="text-lg font-bold text-[#2f2a24]">{analytics.totalPRs}</p>
+          <p className="text-base sm:text-lg font-bold text-[#2f2a24]">{analytics.totalPRs}</p>
         </div>
-        <div className="rounded-lg border border-[#e2d6c8] bg-[#f3ede4] p-2">
-          <div className="flex items-center gap-1.5 mb-0.5">
-            <TrendingUp className="h-3.5 w-3.5 text-[#6f665b]" />
-            <span className="text-xs text-[#7a7064]">Success Rate</span>
+        <div className="rounded-lg border border-[#e2d6c8] bg-[#f3ede4] p-1.5 sm:p-2">
+          <div className="flex items-center gap-1 sm:gap-1.5 mb-0.5">
+            <LuTrendingUp className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-[#6f665b]" />
+            <span className="text-[0.65rem] sm:text-xs text-[#7a7064]">Success Rate</span>
           </div>
-          <p className="text-lg font-bold text-[#2f2a24]">{analytics.successRate}%</p>
+          <p className="text-base sm:text-lg font-bold text-[#2f2a24]">{analytics.successRate}%</p>
         </div>
-        <div className="rounded-lg border border-[#e2d6c8] bg-[#f3ede4] p-2">
-          <div className="flex items-center gap-1.5 mb-0.5">
-            <Clock className="h-3.5 w-3.5 text-[#6f665b]" />
-            <span className="text-xs text-[#7a7064]">Avg Review Time</span>
+        <div className="rounded-lg border border-[#e2d6c8] bg-[#f3ede4] p-1.5 sm:p-2">
+          <div className="flex items-center gap-1 sm:gap-1.5 mb-0.5">
+            <LuClock className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-[#6f665b]" />
+            <span className="text-[0.65rem] sm:text-xs text-[#7a7064]">Avg Review</span>
           </div>
-          <p className="text-lg font-bold text-[#2f2a24]">
+          <p className="text-base sm:text-lg font-bold text-[#2f2a24]">
             {analytics.averageReviewTurnaroundTime > 0
               ? `${Math.round(analytics.averageReviewTurnaroundTime)}h`
               : "N/A"}
           </p>
         </div>
-        <div className="rounded-lg border border-[#e2d6c8] bg-[#f3ede4] p-2">
-          <div className="flex items-center gap-1.5 mb-0.5">
-            <Users className="h-3.5 w-3.5 text-[#6f665b]" />
-            <span className="text-xs text-[#7a7064]">Active Reviewers</span>
+        <div className="rounded-lg border border-[#e2d6c8] bg-[#f3ede4] p-1.5 sm:p-2">
+          <div className="flex items-center gap-1 sm:gap-1.5 mb-0.5">
+            <LuUsers className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-[#6f665b]" />
+            <span className="text-[0.65rem] sm:text-xs text-[#7a7064]">Reviewers</span>
           </div>
-          <p className="text-lg font-bold text-[#2f2a24]">{analytics.activeReviewers.length}</p>
+          <p className="text-base sm:text-lg font-bold text-[#2f2a24]">
+            {analytics.activeReviewers.length}
+          </p>
         </div>
       </div>
 
-      {/* PR Size Distribution */}
-      <div className="rounded-lg border border-[#e2d6c8] bg-[#fffdf8] p-3 shadow-sm">
-        <h4 className="text-xs font-semibold text-[#5f564d] mb-2 uppercase tracking-wide">
-          PR Size Distribution
-        </h4>
-        <div className="flex items-center justify-center gap-4 text-xs text-[#6f665b]">
-          {prSizeData.map((item, index) => (
-            <div key={item.name} className="flex items-center gap-1.5">
-              <div
-                className="w-3 h-3 rounded-sm"
-                style={{ backgroundColor: COLORS[index % COLORS.length] }}
-              />
-              <span>
-                {item.name}: {item.value}
-              </span>
-            </div>
-          ))}
+      {/* PR Size Distribution - Only show if there's data */}
+      {hasPRSizeData && (
+        <div className="rounded-lg border border-[#e2d6c8] bg-[#fffdf8] p-2 sm:p-3 shadow-sm overflow-hidden">
+          <h4 className="text-[0.65rem] sm:text-xs font-semibold text-[#5f564d] uppercase tracking-wide mb-1.5 sm:mb-2">
+            PR Size Distribution
+          </h4>
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-[0.65rem] sm:text-xs text-[#6f665b]">
+            {prSizeData.map((item, index) => (
+              <div key={item.name} className="flex items-center gap-1 sm:gap-1.5">
+                <div
+                  className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-sm flex-shrink-0"
+                  style={{ backgroundColor: COLORS[index % COLORS.length] }}
+                />
+                <span className="break-words">
+                  {item.name}: {item.value}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

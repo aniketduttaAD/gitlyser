@@ -3,6 +3,12 @@ import { githubJson } from "@/lib/github/client";
 import { apiErrorResponse } from "@/lib/github/errors";
 import type { PullRequestItem, PRAnalytics } from "@/lib/github/types";
 
+type PRReview = {
+  user: { login: string } | null;
+  submitted_at: string;
+  state: string;
+};
+
 type PRDetail = PullRequestItem & {
   additions?: number;
   deletions?: number;
@@ -10,10 +16,7 @@ type PRDetail = PullRequestItem & {
   merged_at: string | null;
   created_at: string;
   updated_at: string;
-  reviews?: Array<{
-    user: { login: string };
-    submitted_at: string;
-  }>;
+  reviews: PRReview[];
 };
 
 /**
@@ -78,14 +81,24 @@ export async function GET(request: Request) {
     }
 
     const prsToAnalyze = prs.slice(0, 50);
-    const prDetailsPromises = prsToAnalyze.map((pr) =>
-      githubJson<PRDetail>(`/repos/${sanitizedOwner}/${sanitizedRepo}/pulls/${pr.number}`).catch(
-        () => null
-      )
-    );
+    const prDetailsPromises = prsToAnalyze.map(async (pr) => {
+      try {
+        const [prDetail, reviews] = await Promise.all([
+          githubJson<Omit<PRDetail, "reviews">>(
+            `/repos/${sanitizedOwner}/${sanitizedRepo}/pulls/${pr.number}`
+          ),
+          githubJson<PRReview[]>(
+            `/repos/${sanitizedOwner}/${sanitizedRepo}/pulls/${pr.number}/reviews`
+          ).catch(() => [] as PRReview[]),
+        ]);
+        return { ...prDetail, reviews } as PRDetail;
+      } catch {
+        return null;
+      }
+    });
 
     const prDetails = (await Promise.all(prDetailsPromises)).filter(
-      (pr): pr is PRDetail => pr !== null
+      (pr): pr is PRDetail => pr !== null && pr !== undefined
     );
 
     const mergeTimes: number[] = [];
@@ -124,10 +137,18 @@ export async function GET(request: Request) {
 
     const reviewTimes: number[] = [];
     prDetails.forEach((pr) => {
-      if (pr.updated_at && pr.created_at && pr.merged_at) {
-        const hours = hoursBetween(pr.created_at, pr.updated_at);
-        if (hours < 720) {
-          reviewTimes.push(hours);
+      if (pr.reviews && pr.reviews.length > 0 && pr.created_at) {
+        const sortedReviews = pr.reviews
+          .filter((r) => r.submitted_at)
+          .sort(
+            (a, b) => new Date(a.submitted_at!).getTime() - new Date(b.submitted_at!).getTime()
+          );
+
+        if (sortedReviews.length > 0 && sortedReviews[0].submitted_at) {
+          const hours = hoursBetween(pr.created_at, sortedReviews[0].submitted_at);
+          if (hours > 0 && hours < 720) {
+            reviewTimes.push(hours);
+          }
         }
       }
     });
@@ -139,8 +160,12 @@ export async function GET(request: Request) {
 
     const reviewerMap = new Map<string, number>();
     prDetails.forEach((pr) => {
-      if (pr.user?.login) {
-        reviewerMap.set(pr.user.login, (reviewerMap.get(pr.user.login) || 0) + 1);
+      if (pr.reviews) {
+        pr.reviews.forEach((review) => {
+          if (review.user?.login) {
+            reviewerMap.set(review.user.login, (reviewerMap.get(review.user.login) || 0) + 1);
+          }
+        });
       }
     });
 

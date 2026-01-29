@@ -5,16 +5,16 @@
 ## 📸 Screenshots
 
 ![Dashboard Overview](./docs/screenshots/image1.png)
-*Main GitLyser dashboard with key profile analytics*
+_Main GitLyser dashboard with key profile analytics_
 
 ![Repository Insights](./docs/screenshots/image2.png)
-*Detailed repository cards with summaries and metrics*
+_Detailed repository cards with summaries and metrics_
 
 ![Activity & Contributions](./docs/screenshots/image3.png)
-*Contribution heatmap and activity timeline visualizations*
+_Contribution heatmap and activity timeline visualizations_
 
 ![Code Quality & PR Analytics](./docs/screenshots/image4.png)
-*Code quality metrics and pull request analytics dashboard*
+_Code quality metrics and pull request analytics dashboard_
 
 ## 🚀 Quick Start
 
@@ -61,10 +61,10 @@ npm install
 
 **Where to Add:**
 
-- Click the **"Smart Summary"** button in the app (top-right on desktop, floating button on mobile)
+- Click the **"Smart Summary"** button in the app header (top-right on desktop and mobile)
 - Enter your OpenAI API key in the modal
 - Click "Save Settings"
-- Key is stored securely in your browser's local storage
+- Key is stored securely in your browser's local storage (never sent to our servers)
 
 **Why?** Enables AI-powered repository summaries. Subject to OpenAI's pricing.
 
@@ -80,94 +80,68 @@ Open [http://localhost:3000](http://localhost:3000) to start analyzing profiles.
 
 ### Profile Analysis
 
-- **User & Organization Support** - Analyze any GitHub user or organization
-- **Profile Overview** - Avatar, bio, location, company, website, followers, following, public repos
-- **Sticky Header** - Profile info stays visible while scrolling
-- **Responsive Design** - Works seamlessly on desktop, tablet, and mobile
-- **Search Functionality** - Quick search for any GitHub username
+- Analyze any GitHub user or organization with profile overview, stats, and search functionality
+- Sticky header keeps profile info visible while scrolling
+- Fully responsive design for desktop, tablet, and mobile
 
 ### Data Visualizations
 
-- **Language Distribution** - Interactive pie chart showing programming language usage across repositories
-- **Language Usage** - Bar chart with detailed language statistics and percentages
+- **Language Distribution** - Interactive pie chart of programming languages
+- **Language Usage** - Bar chart with detailed statistics and percentages
 - **Repository Size Distribution** - Visual breakdown of repository sizes
-- **Contribution Heatmap** - GitHub-style contribution calendar with year selection (from profile creation to current year)
-- **Activity Timeline** - Chronological timeline of commits, PRs, issues, repos, and stars with event type filtering
+- **Contribution Heatmap** - GitHub-style contribution calendar with year selection
+- **Activity Timeline** - Chronological timeline of commits, PRs, issues, repos, and stars with filtering
 
 ### Repository Insights
 
-- **Repository Cards** - Expandable cards with detailed information
-- **Repository Summaries** - Heuristic-based summaries from README, dependencies, and file structure
-- **Smart Summary** - AI-powered detailed summaries using OpenAI (optional, requires API key)
-- **Tech Stack Detection** - Automatically detects technologies from:
-  - README files
-  - Package files (package.json, pyproject.toml, requirements.txt, Cargo.toml, go.mod, Gemfile)
-  - File tree structure
-- **Language Statistics** - Programming languages with usage percentages
-- **Topics & Tags** - Repository topics displayed as badges
+- Expandable repository cards with comprehensive details
+- Heuristic-based summaries from README, dependencies, and file structure
+- **Smart Summary** - AI-powered summaries using OpenAI GPT-4o-mini (optional, requires API key)
+- Automatic tech stack detection from README, package files, and file structure
+- Language statistics, topics, and tags
 
 ### Repository Details
 
-When you expand a repository card, you get access to:
-
-- **Project Overview** - Repository summary and AI-powered smart summary
-- **Tech Stack** - Detected technologies and frameworks
-- **Basic Information** - Default branch, visibility, license, repository size
-- **Timeline** - Created date and last pushed date
-- **Features & Settings** - Issues, Projects, Wiki, Pages, Discussions, Forking status
-- **Merge Settings** - Squash merge, merge commit, rebase merge, auto-merge options
-- **Statistics** - Stars, forks, watchers, open issues, fork network size
-- **Clone URLs** - HTTPS, SSH, and Git URLs with one-click copy
-- **Topics & Languages** - Repository topics and top programming languages
-- **Pull Requests** - Grouped by base branch with recent activity
+- Project overview with AI-powered summaries
+- Tech stack detection and detected features (tests, docs, CI/CD, Docker, config files)
+- Documentation highlights (README excerpts, CONTRIBUTING.md, CHANGELOG.md, etc.)
+- Basic information, timeline, settings, statistics, and clone URLs
+- Pull requests grouped by base branch with recent activity
 
 ### Pull Request Analytics
 
-- **PR Metrics Dashboard** - Comprehensive PR statistics and insights
-- **Total PRs** - Count of all pull requests
-- **Success Rate** - Percentage of merged PRs
-- **Average Review Time** - Time to first review in hours
-- **Active Reviewers** - Most active PR reviewers with review counts
-- **PR Size Distribution** - Breakdown by small (<100 lines), medium (100-500), and large (>500) PRs
-- **Grouped by Base Branch** - PRs organized by target branch
-- **Recent Activity** - Latest 5 PRs per branch with timestamps
+- PR metrics dashboard with total PRs, success rate, and average review time
+- Active reviewers list (top 10) and PR size distribution (Small/Medium/Large)
+- Analyzes up to 50 most recent PRs with IQR outlier filtering
+- PRs grouped by base branch with recent activity
 
 ### Repository Health Score
 
-- **Overall Health Score** - 0-100 score with visual indicators
-- **Score Breakdown** - Detailed metrics across 5 categories:
-  - Documentation (0-30 points) - README quality, contributing guidelines, changelog
-  - Maintenance (0-25 points) - Recent commits, commit frequency, CI/CD setup
-  - Community (0-20 points) - Stars, forks, issue activity
-  - Issue Response (0-15 points) - Response time and resolution rate
-  - Code Quality (0-10 points) - Code quality indicators
-- **Improvement Recommendations** - Actionable suggestions to improve repository health
-- **Color-Coded Status** - Visual indicators (Excellent, Good, Fair, Needs Improvement)
+- 0-100 health score with visual indicators and color-coded status
+- Score breakdown across 5 categories: Documentation, Maintenance, Community, Resolution Time, Code Quality
+- Improvement recommendations based on score analysis
 
 ### Code Quality Metrics
 
-- **PR Review Times** - Average and median time to first review
-- **Code Churn Analysis** - Track additions, deletions, and net changes over time
-- **Average Churn per Commit** - Code change statistics
-- **Dependency Health** - Track total, outdated, and latest dependencies
-- **Quality Recommendations** - Suggestions for improving code quality
-- **Interactive Charts** - Visual representation of code churn trends over time
+- Average PR review time with outlier filtering (analyzes up to 50 PRs)
+- Average code churn per commit (analyzes up to 100 commits, excludes merge commits)
+- Dependency health tracking from package files
+- Code churn trends visualization over last 30 days
+- Quality recommendations and interactive charts
 
 ### Comparison View
 
-- **Multi-Profile Comparison** - Compare up to 3 GitHub profiles side-by-side
-- **Side-by-Side Metrics** - Compare followers, repos, stars, and more
-- **Language Comparison** - Compare programming language usage across profiles
-- **Activity Comparison** - Compare contribution heatmaps and activity timelines
-- **AI-Powered Comparison** - Get AI-generated insights comparing profiles (requires OpenAI API key)
-- **Easy Management** - Add/remove profiles from comparison with one click
+- Compare up to 3 GitHub profiles side-by-side
+- Compare metrics, languages, and activity across profiles
+- AI-powered comparison insights using GPT-4o-mini (optional, requires API key)
+- Supports overall, technical skills, and role match comparisons
 
-### User Experience
+### Additional Features
 
-- **Loading States** - Skeleton loaders and clear feedback during data fetching
-- **Error Handling** - User-friendly error messages
-- **Scroll to Top** - Floating button appears on scroll
-- **Copy to Clipboard** - One-click copy for clone URLs
+- **Metrics Info Modal** - Detailed explanations of all calculations (click "Info" button)
+- **Mobile-Optimized** - Bottom sheet layout for mobile devices
+- **Accessible UI** - ARIA labels, keyboard navigation, semantic HTML
+- Loading states, error handling, and one-click copy functionality
 
 ## 🔒 Security
 
@@ -178,18 +152,10 @@ When you expand a repository card, you get access to:
 - **Security Headers**: Production-grade security headers enabled
 - **Graceful Degradation**: App works without tokens (with lower rate limits)
 
-## 📝 Notes
-
-- Repository summaries are heuristic-based and may not cover every tech stack
-- Smart Summary feature requires OpenAI API key (pay-per-use)
-- GitHub token is optional but recommended for better rate limits (5,000/hour vs 60/hour)
-- All tokens are stored securely and never exposed in client-side code
-- Contribution heatmap uses GitHub's official GraphQL API for accurate data
-- Health scores and code quality metrics are calculated based on repository activity and metadata
-
 ## 🛠️ Tech Stack
 
 - **Next.js 16** - React framework with App Router
+- **Next.js API Routes** - Serverless API endpoints
 - **TypeScript** - Type safety
 - **Tailwind CSS 4** - Modern styling
 - **GitHub REST API** - Profile, repository, and PR data
@@ -197,7 +163,3 @@ When you expand a repository card, you get access to:
 - **OpenAI API** - AI summaries and comparisons (optional)
 - **Recharts** - Interactive charts and visualizations
 - **React Markdown** - Markdown rendering for READMEs
-
----
-
-Built with ❤️ by [Aniket Dutta](https://github.com/aniketduttaAD)
