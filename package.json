@@ -10,6 +10,8 @@
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\""
   },
   "dependencies": {
+    "@vercel/analytics": "^1.6.1",
+    "@vercel/speed-insights": "^1.3.1",
     "next": "16.1.4",
     "react": "19.2.3",
     "react-dom": "19.2.3",
